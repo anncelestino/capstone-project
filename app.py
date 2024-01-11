@@ -71,7 +71,7 @@ if page == "Introduction 🎤":
             st.title("♫ :blue[Explore and Analyze Your Songs] ♫")
             st.subheader(":grey[With] ✨ :rainbow[The Song Analysis Explorer App] ✨")
             st.divider()
-            st.markdown("👋🏻 Hello there! Welcome to Ann's Song Analysis Explorer App. Would you like to know if your next song will become a hit? With this app, you have the ability to predict whether or not your song will gain popularity by looking at specific musical features based off the [Song Popuarity Dataset](https://www.kaggle.com/datasets/yasserh/song-popularity-dataset/data?select=song_data.csv).")  
+            st.markdown("👋🏻 Hello there! Welcome to Ann's Song Analysis Explorer App. Would you like to know if your next song will become a hit? With this app, you have the ability to predict whether or not your song will gain popularity by looking at specific musical features based off the [Song Popularity Dataset](https://www.kaggle.com/datasets/yasserh/song-popularity-dataset/data?select=song_data.csv).")  
             st.markdown("This multipurpose app also allows you to explore millions of songs from :green[Spotify] utilizing Spotify's API. You can search for specific songs, artists, or albums to visualize the different features of each song as well as preview songs if available. Recommendations of similar songs can be easily found with a click of a button!")
     
     with col2:
@@ -143,7 +143,7 @@ if page == 'Spotify API 🎧':
     st_lottie(music_icon, speed = 1, height = 75)
 
     search_choices = ['Song/Track', 'Artist', 'Album']
-    search_selected = st.sidebar.selectbox("Your seach choice please: ", search_choices)
+    search_selected = st.sidebar.selectbox("Your search choice please: ", search_choices)
 
     search_keyword = st.text_input(search_selected + " (Keyword Search)")
     button_clicked = st.button ("Search")
