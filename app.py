@@ -312,8 +312,11 @@ if page == 'Spotify API 🎧':
                     all_albums = album_result['items']
                     col1, col2, col3 = st.columns((6, 4, 2))
                     for album in all_albums:
+                        col1.write('Album Name')
                         col1.write(album['name'])
+                        col2.write('Release Date')
                         col2.write(album['release_date'])
+                        col3.write('Total tracks in album')
                         col3.write(album['total_tracks'])
                 elif selected_artist_choice == 'Top Songs':
                     artist_uri = 'spotify:artist:' + artist_id
