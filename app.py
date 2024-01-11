@@ -48,7 +48,7 @@ st.set_page_config(page_title = "Song Analyzer App", page_icon = '🎙️', layo
 
 
 # Sidebar
-page = st.sidebar.selectbox("Please Select a Page", ["Introduction 🏡", "Spotify API 🎧", "The Song Popularity Dataset 📚", "Explore the Dataset 🔍", "Modeling ⚙️", "Predict Song Popularity 🔮"])
+page = st.sidebar.selectbox("Please Select a Page", ["Introduction 🎤", "Spotify API 🎧", "The Song Popularity Dataset 📚", "Explore the Dataset 🔍", "Modeling ⚙️", "Predict Song Popularity 🔮"])
 
 
 
@@ -60,7 +60,7 @@ page = st.sidebar.selectbox("Please Select a Page", ["Introduction 🏡", "Spoti
 
 
 # Build a homepage
-if page == "Introduction 🏡":
+if page == "Introduction 🎤":
 
     col1, col2, col3_spacer = st.columns([3, 1.5, 0.1])
 
@@ -575,7 +575,7 @@ if page == "Explore the Dataset 🔍":
                     container2 = st.container(border=True)
                     if h_selected_col2:
                         with col2:
-                            chart_title = f"**Distribution of {' '.join(h_selected_col.split('_')).title()} Based On {' '.join(h_selected_col2.split('_')).title()}**"
+                            chart_title = f"Distribution of {' '.join(h_selected_col.split('_')).title()} Based On {' '.join(h_selected_col2.split('_')).title()}"
                             fig = container2.plotly_chart(px.histogram(df, x = h_selected_col, title = chart_title, barmode = 'overlay', color = h_selected_col2), use_container_width = True)
                     else:
                         with col2:
@@ -795,9 +795,9 @@ if page == "Predict Song Popularity 🔮":
           
     danceability = container.number_input("Danceability (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.50, placeholder="Type a number...")
 
-    energy = container.number_input("Energy: (Input a number between 0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.50, placeholder="Type a number...")
+    energy = container.number_input("Energy (Input a number between 0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.50, placeholder="Type a number...")
 
-    instrumentalness = container.number_input("Instrumentalness (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.50, placeholder="Type a number...")
+    instrumentalness = container.number_input("Instrumentalness (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.01, placeholder="Type a number...")
 
     key = container.number_input("Key (0 to 11)", min_value = 0, max_value = 11, step = 1, value=5, placeholder="Type a number...")
 
@@ -805,10 +805,10 @@ if page == "Predict Song Popularity 🔮":
 
     loudness = container.number_input("Loudness (-40.0 to 2.0)", min_value = -60.0, max_value = 0.0, step = 1.0, value=-25.0, placeholder="Type a number...")     
 
-    audio_mode = container.radio("What's the audio_mode?",
+    audio_mode = container.radio("What's the audio mode?",
     [0, 1], index=1,)
 
-    speechiness = container.number_input("Speechiness(0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.5, placeholder="Type a number...")    
+    speechiness = container.number_input("Speechiness (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.01, placeholder="Type a number...")    
 
     tempo = container.number_input("Tempo (1 to 250)", min_value = 1, max_value = 250, step = 1, value=125, placeholder="Type a number...")   
 
