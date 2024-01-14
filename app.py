@@ -78,7 +78,7 @@ if page == "Introduction 🎤":
 
         container2 = st.container(border = True)
         with container2:
-            st.subheader(":rainbow[A Streamlit web app] :grey[by] [Ann Celestino](https://github.com/anncelestino/project-airline-satisfaction)")
+            st.subheader(":rainbow[A Streamlit web app] :grey[by] [Ann Celestino](https://www.linkedin.com/in/ann-daniel-celestino-459333184)")
             st.divider()
             st.write("###")
             st.write("##")
