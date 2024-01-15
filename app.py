@@ -52,9 +52,35 @@ st.sidebar.title("**Page Selection**")
 page = st.sidebar.selectbox("Select a page", ["Introduction 🎤", "Spotify API 🎧", "The Song Popularity Dataset 📚", "Explore the Dataset 🔍", "Modeling ⚙️", "Predict Song Popularity 🔮"])
 
 
+definition_choices = ['Acousticness', 'Danceability', 'Energy', 'Instrumentalness', 'Key', 'Liveness', 'Loudness', 'Speechiness', 'Tempo', 'Time Signature', 'Valence', 'Song Duration']
 
-
-
+def definition(definition_selected):
+    if definition_selected == 'Acousticness':
+        return f'A confidence measure from 0.0 to 1.0 of whether the track is acoustic. Acoustic means the music is created without the use of any electronic amplification or effects. It\'s just the pure, raw sound of the instruments. 1.0 represents high confidence the track is acoustic.'
+    if definition_selected == 'Danceability':
+        return f'Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.'
+    if definition_selected == 'Energy':
+        return f'Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.'
+    if definition_selected == 'Instrumentalness':
+        return f'Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.'
+    if definition_selected == 'Key':
+        return f'The key the track is in. Integers map to pitches using standard Pitch Class notation. E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.'
+    if definition_selected == 'Liveness':
+        return f'Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.'
+    if definition_selected == 'Loudness':
+        return f'The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typically range between -60 and 0 db.'
+    if definition_selected == 'Speechiness':
+        return f'Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.'
+    if definition_selected == 'Tempo':
+        return f'The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.'
+    if definition_selected == 'Time Signature':
+        return f'A sign used to indicate musical meter and usually written with one number above another with the bottom number indicating the kind of note used as a unit of time and the top number indicating the number of these units in each measure.'
+    if definition_selected == 'Valence':
+        return f'A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).'
+    if definition_selected == 'Song Duration':
+        return f'THe amount of time an entire piece of work lasts'
+    if definition_selected == 'Audio Mode':
+        return f'Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.'
 
 
 
@@ -154,49 +180,8 @@ if page == 'Spotify API 🎧':
     search_keyword = st.text_input(search_selected + " (Keyword Search)")
     button_clicked = st.button ("Search")
 
-    # if search_keyword:
-    #     st.divider()
 
-    # definition_choices = ['Acousticness', 'Danceability', 'Energy', 'Instrumentalness', 'Key', 'Liveness', 'Loudness', 'Speechiness', 'Tempo', 'Time Signature', 'Valence', 'Song Duration']
     # definition_selected = st.sidebar.selectbox("Select a feature ", definition_choices)
-
-    # def definition(definition_selected):
-    #     if definition_selected == 'Acousticness':
-    #         return f'A confidence measure from 0.0 to 1.0 of whether the track is acoustic. Acoustic means the music is created without the use of any electronic amplification or effects. It\'s just the pure, raw sound of the instruments. 1.0 represents high confidence the track is acoustic.'
-    #     if definition_selected == 'Danceability':
-    #         return f'Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.'
-    #     if definition_selected == 'Energy':
-    #         return f'Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.'
-    #     if definition_selected == 'Instrumentalness':
-    #         return f'Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.'
-    #     if definition_selected == 'Key':
-    #         return f'The key the track is in. Integers map to pitches using standard Pitch Class notation. E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.'
-    #     if definition_selected == 'Liveness':
-    #         return f'Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.'
-    #     if definition_selected == 'Loudness':
-    #         return f'The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typically range between -60 and 0 db.'
-    #     if definition_selected == 'Speechiness':
-    #         return f'Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.'
-    #     if definition_selected == 'Tempo':
-    #         return f'The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.'
-    #     if definition_selected == 'Time Signature':
-    #         return f'A sign used to indicate musical meter and usually written with one number above another with the bottom number indicating the kind of note used as a unit of time and the top number indicating the number of these units in each measure.'
-    #     if definition_selected == 'Valence':
-    #         return f'A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).'
-    #     if definition_selected == 'Song Duration':
-    #         return f'THe amount of time an entire piece of work lasts'
-    #     if definition_selected == 'Audio Mode':
-    #         return f'Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.'
-    # # if selected_feature is not None:
-    # #     st.write(define_feature(selected_feature))
-    
-
-    # with st.sidebar.expander("See definition"):
-    #     if definition_selected is not None:
-    #         st.write(definition(definition_selected))
-        
-
-
 
 
     # container1 = st.container(border = True)
@@ -291,11 +276,12 @@ if page == 'Spotify API 🎧':
                     track_features = sp.audio_features(track_id)
                     df2 = pd.DataFrame(track_features, index = [0])
                     df2_features = df2.loc[: ,['acousticness', 'danceability', 'energy', 'instrumentalness',     'liveness', 'speechiness', 'valence']]
-                    st.subheader(":orange[Features of the song]")
-                    st.dataframe(df2_features)
-                    st.divider()
-                    st.subheader(":orange[Polarplot of the song]")
-                    polarplot.feature_plot(df2_features)
+                    col1, col2, = st.columns((5,5))
+                    col1.subheader(":red[Audio Features]")
+                    col1.dataframe(df2_features)
+                    col2.subheader(":red[Polarplot]")
+                    with col2:
+                        polarplot.feature_plot(df2_features)
                 elif selected_track_choice == 'Similar Songs Recommendations 🩵':
                     token = songrecommendations.get_token(SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET)
                     similar_songs_json = songrecommendations.get_track_recommendations(track_id, token)
@@ -303,9 +289,13 @@ if page == 'Spotify API 🎧':
                     recommendation_list_df = pd.DataFrame(recommendation_list)
                     # st.dataframe(recommendation_list_df)
                     recommendation_df = recommendation_list_df[['name', 'explicit', 'duration_ms', 'popularity']]
-                    st.dataframe(recommendation_df)
+                    col1, col2, = st.columns((5,5))
+                    col1.write(":red[Similar Songs Recommendation]")
+                    col1.dataframe(recommendation_df)
                     # st.write("Recommendations...")
-                    songrecommendations.song_recommendation_vis(recommendation_df)
+                    col2.write(":red[Similar Songs Graph]")
+                    with col2:
+                        songrecommendations.song_recommendation_vis(recommendation_df)
             else:
                 st.write("Please select a track from the list")
 
@@ -380,6 +370,8 @@ if page == 'Spotify API 🎧':
                             col2.write(album['release_date'])
                             col3.write(album['total_tracks'])
                 elif selected_artist_choice == 'Top Songs 🎵':
+                    col_df, col_plot = st.columns((5,5))
+                    col_rec_list, col_graph = st.columns((5, 5))
                     st.write(f"Gathering top songs from artist: :orange[{selected_artist}]")
                     artist_uri = 'spotify:artist:' + artist_id
                     top_songs_result = sp.artist_top_tracks(artist_uri)
@@ -401,8 +393,11 @@ if page == 'Spotify API 🎧':
                                 track_features = sp.audio_features(track['id'])
                                 df2 = pd.DataFrame(track_features, index = [0])
                                 df2_features = df2.loc[: ,['acousticness', 'danceability', 'energy',    'instrumentalness', 'liveness', 'speechiness', 'valence']]
-                                with col1:
-                                    col21.dataframe(df2_features)
+                                with col_df:
+                                    st.write(":red[Features]")
+                                    st.dataframe(df2_features)
+                                with col_plot:
+                                    st.write(":red[Polarplot]")
                                     polarplot.feature_plot(df2_features)
 
                             feature_button_state = col2.button('Track Audio Features', key=track['id'],   on_click=feature_requested)
@@ -415,10 +410,12 @@ if page == 'Spotify API 🎧':
                                     recommendation_list = similar_songs_json['tracks']
                                     recommendation_list_df = pd.DataFrame(recommendation_list)
                                     recommendation_df = recommendation_list_df[['name', 'explicit', 'duration_ms',  'popularity']]
-                                    # with col21:
-                                    #     st.dataframe(recommendation_df)
-                                    # with col31:
-                                    #     songrecommendations.song_recommendation_vis(recommendation_df)
+                                    with col_rec_list:
+                                        st.write(":red[Similar Songs List]")
+                                        st.dataframe(recommendation_df)
+                                    with col_graph:
+                                        st.write(":red[Similar Songs Based on Explicitness, Duration, Popularity]")
+                                        songrecommendations.song_recommendation_vis(recommendation_df)
 
                             similar_songs_state = col3.button('Similar Songs', key=track['name'],     on_click=similar_songs_requested)
 
@@ -442,39 +439,8 @@ if page == 'Spotify API 🎧':
 if page == "The Song Popularity Dataset 📚":
     st.title(":rainbow[The Song Popularity Dataset] 🔢")
 
-    definition_choices = ['Acousticness', 'Danceability', 'Energy', 'Instrumentalness', 'Key', 'Liveness', 'Loudness', 'Speechiness', 'Tempo', 'Time Signature', 'Valence', 'Song Duration']
-    definition_selected = st.sidebar.selectbox("Select a feature to define: ", definition_choices)
-
-    def definition(definition_selected):
-        if definition_selected == 'Acousticness':
-            return f'A confidence measure from 0.0 to 1.0 of whether the track is acoustic. Acoustic means the music is created without the use of any electronic amplification or effects. It\'s just the pure, raw sound of the instruments. 1.0 represents high confidence the track is acoustic.'
-        if definition_selected == 'Danceability':
-            return f'Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.'
-        if definition_selected == 'Energy':
-            return f'Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.'
-        if definition_selected == 'Instrumentalness':
-            return f'Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.'
-        if definition_selected == 'Key':
-            return f'The key the track is in. Integers map to pitches using standard Pitch Class notation. E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.'
-        if definition_selected == 'Liveness':
-            return f'Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.'
-        if definition_selected == 'Loudness':
-            return f'The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typically range between -60 and 0 db.'
-        if definition_selected == 'Speechiness':
-            return f'Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.'
-        if definition_selected == 'Tempo':
-            return f'The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.'
-        if definition_selected == 'Time Signature':
-            return f'A sign used to indicate musical meter and usually written with one number above another with the bottom number indicating the kind of note used as a unit of time and the top number indicating the number of these units in each measure.'
-        if definition_selected == 'Valence':
-            return f'A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).'
-        if definition_selected == 'Song Duration':
-            return f'THe amount of time an entire piece of work lasts'
-        if definition_selected == 'Audio Mode':
-            return f'Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.'
-    # if selected_feature is not None:
-    #     st.write(define_feature(selected_feature))
-    
+    st.sidebar.title("Get the definition")
+    definition_selected = st.sidebar.selectbox("Select a feature to define", definition_choices)
 
     with st.sidebar.expander("See definition"):
         if definition_selected is not None:
@@ -486,7 +452,7 @@ if page == "The Song Popularity Dataset 📚":
         container = st.container(border = True)
         container.subheader(":blue[About the Data] 📝")
         container.divider()
-        container.write("This dataset consists of numerous rows of songs along with columns of information for each song which includes the name of the song, duration, popularity, and various musical elements ranging from :violet[danceability], :orange[energy], :blue[valence], and :rainbow[more]. **The original dataset was obtained from Kaggle which you can find [here](https://www.kaggle.com/datasets/yasserh/song-popularity-dataset/data?select=song_data.csv).** The dataset can also be downloaded by clicking the `Download CSV`button!")
+        container.write("The dataset encompasses numerous rows, each representing individual songs, with accompanying columns presenting detailed information for each song. This information includes the song's name, duration, popularity, and various musical attributes such as danceability, energy, valence, and others. *The original dataset was sourced from Kaggle, accessible [here](https://www.kaggle.com/datasets/yasserh/song-popularity-dataset/data?select=song_data.csv).* For convenience, the dataset can be obtained by selecting the `Download CSV` button!")
         # Download
         @st.cache_data
         def convert_df(df):
@@ -514,8 +480,8 @@ if page == "The Song Popularity Dataset 📚":
     
     col1,col2 = st.columns([2,2])
     with col1:
-        st.subheader(":blue[Data Overview]: Take a Quick Glance at The Song Popularity Dataset 👀")
-        st.write("**Check out the :blue[dataset] we are working with down below!** ↓")
+        st.subheader(":blue[Data Overview]")
+        st.write("**Take a brief look at the Song Popularity Dataset provided below to get a glimpse of our current data!** ↓")
 
     with col2:
         st.image("https://storage.googleapis.com/research-production/1/2021/10/Multi-Task-Graph-Learning-2.png")
@@ -551,39 +517,8 @@ if page == "The Song Popularity Dataset 📚":
 # Build EDA page
 if page == "Explore the Dataset 🔍":
 
-    definition_choices = ['Acousticness', 'Danceability', 'Energy', 'Instrumentalness', 'Key', 'Liveness', 'Loudness', 'Speechiness', 'Tempo', 'Time Signature', 'Valence', 'Song Duration']
-    definition_selected = st.sidebar.selectbox("Select a feature to define: ", definition_choices)
-
-    def definition(definition_selected):
-        if definition_selected == 'Acousticness':
-            return f'A confidence measure from 0.0 to 1.0 of whether the track is acoustic. Acoustic means the music is created without the use of any electronic amplification or effects. It\'s just the pure, raw sound of the instruments. 1.0 represents high confidence the track is acoustic.'
-        if definition_selected == 'Danceability':
-            return f'Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.'
-        if definition_selected == 'Energy':
-            return f'Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.'
-        if definition_selected == 'Instrumentalness':
-            return f'Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.'
-        if definition_selected == 'Key':
-            return f'The key the track is in. Integers map to pitches using standard Pitch Class notation. E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.'
-        if definition_selected == 'Liveness':
-            return f'Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.'
-        if definition_selected == 'Loudness':
-            return f'The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typically range between -60 and 0 db.'
-        if definition_selected == 'Speechiness':
-            return f'Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.'
-        if definition_selected == 'Tempo':
-            return f'The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.'
-        if definition_selected == 'Time Signature':
-            return f'A sign used to indicate musical meter and usually written with one number above another with the bottom number indicating the kind of note used as a unit of time and the top number indicating the number of these units in each measure.'
-        if definition_selected == 'Valence':
-            return f'A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).'
-        if definition_selected == 'Song Duration':
-            return f'THe amount of time an entire piece of work lasts'
-        if definition_selected == 'Audio Mode':
-            return f'Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.'
-    # if selected_feature is not None:
-    #     st.write(define_feature(selected_feature))
-    
+    st.sidebar.title("Get the definition")
+    definition_selected = st.sidebar.selectbox("Select a feature to define", definition_choices)
 
     with st.sidebar.expander("See definition"):
         if definition_selected is not None:
@@ -805,46 +740,16 @@ if page == "Explore the Dataset 🔍":
 if page == "Modeling ⚙️":
 
     definition_choices = ['Acousticness', 'Danceability', 'Energy', 'Instrumentalness', 'Key', 'Liveness', 'Loudness', 'Speechiness', 'Tempo', 'Time Signature', 'Valence', 'Song Duration']
-    definition_selected = st.sidebar.selectbox("Select a feature to define: ", definition_choices)
-
-    def definition(definition_selected):
-        if definition_selected == 'Acousticness':
-            return f'A confidence measure from 0.0 to 1.0 of whether the track is acoustic. Acoustic means the music is created without the use of any electronic amplification or effects. It\'s just the pure, raw sound of the instruments. 1.0 represents high confidence the track is acoustic.'
-        if definition_selected == 'Danceability':
-            return f'Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.'
-        if definition_selected == 'Energy':
-            return f'Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.'
-        if definition_selected == 'Instrumentalness':
-            return f'Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.'
-        if definition_selected == 'Key':
-            return f'The key the track is in. Integers map to pitches using standard Pitch Class notation. E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.'
-        if definition_selected == 'Liveness':
-            return f'Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.'
-        if definition_selected == 'Loudness':
-            return f'The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typically range between -60 and 0 db.'
-        if definition_selected == 'Speechiness':
-            return f'Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.'
-        if definition_selected == 'Tempo':
-            return f'The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.'
-        if definition_selected == 'Time Signature':
-            return f'A sign used to indicate musical meter and usually written with one number above another with the bottom number indicating the kind of note used as a unit of time and the top number indicating the number of these units in each measure.'
-        if definition_selected == 'Valence':
-            return f'A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).'
-        if definition_selected == 'Song Duration':
-            return f'THe amount of time an entire piece of work lasts'
-        if definition_selected == 'Audio Mode':
-            return f'Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.'
-    # if selected_feature is not None:
-    #     st.write(define_feature(selected_feature))
-    
+    st.sidebar.title("Get the definition")
+    definition_selected = st.sidebar.selectbox("Select a feature to define", definition_choices)
 
     with st.sidebar.expander("See definition"):
         if definition_selected is not None:
             st.write(definition(definition_selected))
 
-    st.title("⚙️ Creating a Machine Learning Model 🤖🎤")
+    st.title("⚙️ How Machine Learning Modelling Works 🤖🎤")
     st.markdown("**On this page, you can see how well different :orange[machine learning models] make :violet[predictions] on :red[song popularity]!**")
-    st.write("There are two main types of Machine Learning Models: Machine Learning Classification (where the response belongs to a set of classes) and Machine Learning Regression(where the response is continuous). In this page, we can choose between three Machine Learning Classification Models: :orange[_k_-Nearest Neighbor (KNN)], :blue[Logistic Regression], and :green[Random Forest]. **:grey[To learn about the different types of machine learning models, click the link found]** [here](https://www.mathworks.com/discovery/machine-learning-models.html#:~:text=There%20are%20two%20main%20types,where%20the%20response%20is%20continuous).")
+    st.write("There are two main types of Machine Learning Models: Machine Learning Classification (where the response belongs to a set of classes) and Machine Learning Regression(where the response is continuous). In this page, we can choose between three Machine Learning _Classification_ Models: :orange[_k_-Nearest Neighbor (KNN)], :blue[Logistic Regression], and :green[Random Forest]. **:grey[To learn about the different types of machine learning models, click the link found]** [here](https://www.mathworks.com/discovery/machine-learning-models.html#:~:text=There%20are%20two%20main%20types,where%20the%20response%20is%20continuous).")
 
     def load_lottieurl(url: str):
             r = requests.get(url)
@@ -856,20 +761,32 @@ if page == "Modeling ⚙️":
 
     container = st.container(border = True)
     with container:
-        st.header("#")
+        col01, col02, col03 = st.columns((2, 5, 1))
+        col02.subheader("Classification Machine Learning Models")
         left_spacer, col1, col1_spacer, col2, col2_spacer, col3, right_spacer = st.columns((0.5, 5, 0.5, 5, 0.5, 5, 0.5))
         col1.subheader(":orange[_k_-Nearest Neighbor]")
-        col1.divider()
-        col1.write("KNN is a type of machine learning model that categorizes objects based on the classes of their nearest neighbors in the data set. KNN predictions assume that objects near each other are similar. Distance metrics, such as Euclidean, city block, cosine, and Chebyshev, are used to find the nearest neighbor. Learn more [here](https://towardsdatascience.com/a-simple-introduction-to-k-nearest-neighbors-algorithm-b3519ed98e#:~:text=What%20is%20KNN%3F,how%20its%20neighbours%20are%20classified). ")
         col1.image("https://miro.medium.com/v2/resize:fit:1358/0*jqxx3-dJqFjXD6FA")
+        with col1.expander("See description"):
+            st.write("KNN is a type of machine learning model that categorizes objects based on the classes of their nearest neighbors in the data set. KNN predictions assume that objects near each other are similar. Distance metrics, such as Euclidean, city block, cosine, and Chebyshev, are used to find the nearest neighbor. Learn more [here](https://towardsdatascience.com/a-simple-introduction-to-k-nearest-neighbors-algorithm-b3519ed98e#:~:text=What%20is%20KNN%3F,how%20its%20neighbours%20are%20classified).")
+            st.image("https://qph.fs.quoracdn.net/main-qimg-c6a1b46c814fd6347dc54750b57fefa8")
         col2.subheader(":blue[Logistic Regression]")
-        col2.divider()
-        col2.write("Logistic regression is a special case of regression analysis and is used when the dependent variable is nominally scaled. With logistic regression, it is now possible to explain the dependent variable or estimate the probability of occurrence of the categories of the variable. Learn more [here](https://datatab.net/tutorial/logistic-regression).")
         col2.image("https://prwatech.in/blog/wp-content/uploads/2020/02/logi1.png")
+        with col2.expander("See description"):
+            st.write("Logistic regression is a special case of regression analysis and is used when the dependent variable is nominally scaled. With logistic regression, it is now possible to explain the dependent variable or estimate the probability of occurrence of the categories of the variable. Learn more [here](https://datatab.net/tutorial/logistic-regression).")
+            st.image("https://miro.medium.com/v2/resize:fit:958/1*_4lc56CLCUtzgBCPxELJEA.jpeg")
         col3.subheader(":green[Random Forest]")
-        col3.divider()
-        col3.write("A Random Forest is like a group decision-making team in machine learning. It combines the opinions of many “trees” (individual models) to make better predictions, creating a more robust and accurate overall model. It combines the output of multiple decision trees to reach a single result. Its ease of use and flexibility have fueled its adoption, as it handles both classification and regression problems.Learn more [here](https://www.ibm.com/topics/random-forest#:~:text=Random%20forest%20is%20a%20commonly,both%20classification%20and%20regression%20problems.).")
         col3.image("https://media5.datahacker.rs/2022/08/26.jpg")
+        with col3.expander("See description"):
+            st.write("A Random Forest is like a group decision-making team in machine learning. It combines the opinions of many “trees” (individual models) to make better predictions, creating a more robust and accurate overall model. It combines the output of multiple decision trees to reach a single result. Its ease of use and flexibility have fueled its adoption, as it handles both classification and regression problems. Learn more [here](https://www.ibm.com/topics/random-forest#:~:text=Random%20forest%20is%20a%20commonly,both%20classification%20and%20regression%20problems.).")
+            st.image("https://pbs.twimg.com/media/FQJEPb6aUAQkbKP.jpg")
+
+    container2 = st.container(border=True)
+    container2.subheader("**The Baseline Score**") 
+    container2.write(">The baseline score is often used as a starting point for evaluating the effectiveness of models or algorithms. It provides a clear indication of the minimum level of performance that needs to be exceeded to warrant the implementation of more complex and resource-intesive algorithms. These scores are obtained by adding the value of each of the samples together, then divide by the total number of samples. In Layman's terms, extracting the mean or average. If the score is lower than the mean, then there is no point in using the model.")
+    container2.write(":blue[Low Popularity]: 12.65%")
+    container2.write(":violet[Low-Mid Popularity]: 27.56%")
+    container2.write(":orange[Mid-High Popularity]: 46.11%")
+    container2.write(":red[High Popularity]: 13.68%")
 
     # Set up X and y
     X = df.drop(columns = ['song_name', 'song_popularity', 'popularity_category'])
@@ -885,7 +802,7 @@ if page == "Modeling ⚙️":
 
     # Instantiating & fitting selected model
     if model_option:
-        press_button = st.button("Let's see the performance!")
+        press_button = container.button("Let's see the performance!")
         if model_option == "KNN":
             k_value = container.slider("Select the number of neighbors (k)", 1, 29, 5, 2)
             model = KNeighborsClassifier(n_neighbors= k_value)
@@ -906,40 +823,38 @@ if page == "Modeling ⚙️":
                 elif model_option == 'Random Forest':
                     return f':green[{model}]'
 
-            # Confusion Matrix
-            st.subheader(f"Confusion Matrix Using {model_colors(model)} Model")
-            ConfusionMatrixDisplay.from_estimator(model, X_test, y_test, cmap = 'Blues', xticks_rotation=45)
-            st.pyplot()
-
-            container = st.container(border=True)
-            container.subheader(f"{model_colors(model)} Evaluation")
-            container.text(f"Training Dataset Accuracy: {round(model.score(X_train, y_train)*100, 2)}%")
-            container.write(f":orange[Testing Dataset Accuracy]: **{round(model.score(X_test, y_test)*100, 2)}%** ← We will use the testing score and compare to :orange[Mid-High Popularity] baseline score.")
-
-            container2 = st.container(border=True)
-            container2.subheader("**Compare to the Baseline Score**") 
-            container2.write(">The baseline provides a clear indication of the minimum level of performance that needs to be exceeded to warrant the implementation of more complex and resource-intesive algorithms.")
-            container2.write(":blue[Low Popularity]: 12.65%")
-            container2.write(":violet[Low-Mid Popularity]: 27.56%")
-            container2.write(":orange[Mid-High Popularity]: 46.11%")
-            container2.write(":red[High Popularity]: 13.68%")
-
             def use_model(score):
                 if score > 46.11:
-                    return f"The {model_colors(model)} Model beat the Baseline Score! 🎉 You can use this model to make predictions for this dataset."
+                    return f"🎉 The {model_colors(model)} Model beat the Baseline Score! You can use this model to make predictions for this dataset."
                     st.balloons()
                 else:
-                    return f"The {model_colors(model)} Model did not beat the basline score... You can probably use another model."
+                    return f"🌧️ The {model_colors(model)} Model did not beat the basline score 🙅🏻‍♀️... You can probably use another model."
             def celebrate(score):
                 if score > 46.11:
                     st.balloons()
                 else:
                     st.snow()
+
             use_model_answer = use_model(round(model.score(X_test, y_test)*100, 2))
             container3 = st.container(border=True)
-            container3.subheader(":green[Recommendation]")
+            container3.subheader(":blue[Performance]")
             container3.write(use_model_answer)
             time_to_celebrate = celebrate(round(model.score(X_test, y_test)*100, 2))
+
+
+                
+            container = st.container(border=True)
+            container.subheader(":blue[Evaluation]")
+            container.text(f"Accuracy score on training dataset: {round(model.score(X_train, y_train)*100, 2)}%")
+            container.write(f":orange[Accuracy score on testing dataset]: **:red[{round(model.score(X_test, y_test)*100, 2)}%]** ← ------ The testing score is compared to :orange[Mid-High Popularity] baseline score.")
+            container.image("https://pbs.twimg.com/media/EegSVtOXkAAcI_l.jpg")
+
+            # Confusion Matrix
+            st.subheader(f"Confusion Matrix Using {model_colors(model)} Model")
+            ConfusionMatrixDisplay.from_estimator(model, X_test, y_test, cmap = 'Blues', xticks_rotation=45)
+            st.pyplot()
+
+
 
 
 
@@ -953,39 +868,8 @@ if page == "Modeling ⚙️":
 # Build Predictions Page
 if page == "Predict Song Popularity 🔮":
 
-    definition_choices = ['Acousticness', 'Danceability', 'Energy', 'Instrumentalness', 'Key', 'Liveness', 'Loudness', 'Speechiness', 'Tempo', 'Time Signature', 'Valence', 'Song Duration']
-    definition_selected = st.sidebar.selectbox("Select a feature to define: ", definition_choices)
-
-    def definition(definition_selected):
-        if definition_selected == 'Acousticness':
-            return f'A confidence measure from 0.0 to 1.0 of whether the track is acoustic. Acoustic means the music is created without the use of any electronic amplification or effects. It\'s just the pure, raw sound of the instruments. 1.0 represents high confidence the track is acoustic.'
-        if definition_selected == 'Danceability':
-            return f'Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.'
-        if definition_selected == 'Energy':
-            return f'Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.'
-        if definition_selected == 'Instrumentalness':
-            return f'Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.'
-        if definition_selected == 'Key':
-            return f'The key the track is in. Integers map to pitches using standard Pitch Class notation. E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.'
-        if definition_selected == 'Liveness':
-            return f'Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.'
-        if definition_selected == 'Loudness':
-            return f'The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typically range between -60 and 0 db.'
-        if definition_selected == 'Speechiness':
-            return f'Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.'
-        if definition_selected == 'Tempo':
-            return f'The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.'
-        if definition_selected == 'Time Signature':
-            return f'A sign used to indicate musical meter and usually written with one number above another with the bottom number indicating the kind of note used as a unit of time and the top number indicating the number of these units in each measure.'
-        if definition_selected == 'Valence':
-            return f'A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).'
-        if definition_selected == 'Song Duration':
-            return f'THe amount of time an entire piece of work lasts'
-        if definition_selected == 'Audio Mode':
-            return f'Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.'
-    # if selected_feature is not None:
-    #     st.write(define_feature(selected_feature))
-    
+    st.sidebar.title("Get the definition")
+    definition_selected = st.sidebar.selectbox("Select a feature to define", definition_choices)
 
     with st.sidebar.expander("See definition"):
         if definition_selected is not None:
