@@ -1,7 +1,7 @@
 # Capstone Project: The Song Popularity App
 
 ## Overview
-Welcome to my Capstone Project, The Song Popularity App! This project combines data analysis, machine learning, and integration with Spotify's API to create an interactive app using Streamlit. The objective is to analyze The Song Popularity Dataset, predict song popularity, and provide song recommendations based on user inputs.
+Welcome to my Capstone Project, The Song Popularity App! This project combines data analysis, machine learning, and integration with Spotify's API to create an interactive app using Streamlit. The objective is to analyze The Song Popularity Dataset, ustilize Machine Learning Modelling to predict song popularity, and to combine those into a Steamlit app that allows users to interact with the data.
 
 ## Project Highlights
 - **Predictive Modeling Presentation:**
