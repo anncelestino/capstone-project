@@ -739,14 +739,6 @@ if page == "Explore the Dataset 🔍":
 # Build Modeling Page
 if page == "Modeling ⚙️":
 
-    definition_choices = ['Acousticness', 'Danceability', 'Energy', 'Instrumentalness', 'Key', 'Liveness', 'Loudness', 'Speechiness', 'Tempo', 'Time Signature', 'Valence', 'Song Duration']
-    st.sidebar.title("Get the definition")
-    definition_selected = st.sidebar.selectbox("Select a feature to define", definition_choices)
-
-    with st.sidebar.expander("See definition"):
-        if definition_selected is not None:
-            st.write(definition(definition_selected))
-
     st.title("⚙️ How Machine Learning Modelling Works 🤖🎤")
     st.markdown("**On this page, you can see how well different :orange[machine learning models] make :violet[predictions] on :red[song popularity]!**")
     st.write("There are two main types of Machine Learning Models: Machine Learning Classification (where the response belongs to a set of classes) and Machine Learning Regression(where the response is continuous). In this page, we can choose between three Machine Learning _Classification_ Models: :orange[_k_-Nearest Neighbor (KNN)], :blue[Logistic Regression], and :green[Random Forest]. **:grey[To learn about the different types of machine learning models, click the link found]** [here](https://www.mathworks.com/discovery/machine-learning-models.html#:~:text=There%20are%20two%20main%20types,where%20the%20response%20is%20continuous).")
