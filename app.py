@@ -48,7 +48,8 @@ st.set_page_config(page_title = "Song Analyzer App", page_icon = '🎙️', layo
 
 
 # Sidebar
-page = st.sidebar.selectbox("Please Select a Page", ["Introduction 🎤", "Spotify API 🎧", "The Song Popularity Dataset 📚", "Explore the Dataset 🔍", "Modeling ⚙️", "Predict Song Popularity 🔮"])
+st.sidebar.title("**Page Selection**")
+page = st.sidebar.selectbox("Select a page", ["Introduction 🎤", "Spotify API 🎧", "The Song Popularity Dataset 📚", "Explore the Dataset 🔍", "Modeling ⚙️", "Predict Song Popularity 🔮"])
 
 
 
@@ -142,55 +143,63 @@ if page == 'Spotify API 🎧':
     music_icon = load_lottieurl("https://lottie.host/a97dff1e-c79e-41e7-8d53-9754bab61274/ILXLNH6kBg.json")
     st_lottie(music_icon, speed = 1, height = 75)
 
-    search_choices = ['Song/Track', 'Artist', 'Album']
-    search_selected = st.sidebar.selectbox("Your search choice please: ", search_choices)
+    st.sidebar.divider()
+    st.sidebar.title("Spotify Search Options")
+    search_choices = ['Song/Track 🎧', 'Artist 🎸', 'Album 💿']
+    search_selected = st.sidebar.selectbox("Search choice ", search_choices)
 
+    col01, col02, col03 = st.columns((8, 7, 5))
+    with col01:
+        st.subheader(f":green[{search_selected} Selection]")
     search_keyword = st.text_input(search_selected + " (Keyword Search)")
     button_clicked = st.button ("Search")
 
-    definition_choices = ['Acousticness', 'Danceability', 'Energy', 'Instrumentalness', 'Key', 'Liveness', 'Loudness', 'Speechiness', 'Tempo', 'Time Signature', 'Valence', 'Song Duration']
-    definition_selected = st.sidebar.selectbox("Select a feature to define: ", definition_choices)
+    # if search_keyword:
+    #     st.divider()
 
-    def definition(definition_selected):
-        if definition_selected == 'Acousticness':
-            return f'A confidence measure from 0.0 to 1.0 of whether the track is acoustic. Acoustic means the music is created without the use of any electronic amplification or effects. It\'s just the pure, raw sound of the instruments. 1.0 represents high confidence the track is acoustic.'
-        if definition_selected == 'Danceability':
-            return f'Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.'
-        if definition_selected == 'Energy':
-            return f'Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.'
-        if definition_selected == 'Instrumentalness':
-            return f'Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.'
-        if definition_selected == 'Key':
-            return f'The key the track is in. Integers map to pitches using standard Pitch Class notation. E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.'
-        if definition_selected == 'Liveness':
-            return f'Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.'
-        if definition_selected == 'Loudness':
-            return f'The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typically range between -60 and 0 db.'
-        if definition_selected == 'Speechiness':
-            return f'Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.'
-        if definition_selected == 'Tempo':
-            return f'The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.'
-        if definition_selected == 'Time Signature':
-            return f'A sign used to indicate musical meter and usually written with one number above another with the bottom number indicating the kind of note used as a unit of time and the top number indicating the number of these units in each measure.'
-        if definition_selected == 'Valence':
-            return f'A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).'
-        if definition_selected == 'Song Duration':
-            return f'THe amount of time an entire piece of work lasts'
-        if definition_selected == 'Audio Mode':
-            return f'Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.'
-    # if selected_feature is not None:
-    #     st.write(define_feature(selected_feature))
+    # definition_choices = ['Acousticness', 'Danceability', 'Energy', 'Instrumentalness', 'Key', 'Liveness', 'Loudness', 'Speechiness', 'Tempo', 'Time Signature', 'Valence', 'Song Duration']
+    # definition_selected = st.sidebar.selectbox("Select a feature ", definition_choices)
+
+    # def definition(definition_selected):
+    #     if definition_selected == 'Acousticness':
+    #         return f'A confidence measure from 0.0 to 1.0 of whether the track is acoustic. Acoustic means the music is created without the use of any electronic amplification or effects. It\'s just the pure, raw sound of the instruments. 1.0 represents high confidence the track is acoustic.'
+    #     if definition_selected == 'Danceability':
+    #         return f'Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.'
+    #     if definition_selected == 'Energy':
+    #         return f'Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.'
+    #     if definition_selected == 'Instrumentalness':
+    #         return f'Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.'
+    #     if definition_selected == 'Key':
+    #         return f'The key the track is in. Integers map to pitches using standard Pitch Class notation. E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.'
+    #     if definition_selected == 'Liveness':
+    #         return f'Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.'
+    #     if definition_selected == 'Loudness':
+    #         return f'The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typically range between -60 and 0 db.'
+    #     if definition_selected == 'Speechiness':
+    #         return f'Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.'
+    #     if definition_selected == 'Tempo':
+    #         return f'The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.'
+    #     if definition_selected == 'Time Signature':
+    #         return f'A sign used to indicate musical meter and usually written with one number above another with the bottom number indicating the kind of note used as a unit of time and the top number indicating the number of these units in each measure.'
+    #     if definition_selected == 'Valence':
+    #         return f'A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).'
+    #     if definition_selected == 'Song Duration':
+    #         return f'THe amount of time an entire piece of work lasts'
+    #     if definition_selected == 'Audio Mode':
+    #         return f'Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.'
+    # # if selected_feature is not None:
+    # #     st.write(define_feature(selected_feature))
     
 
-    with st.sidebar.expander("See definition"):
-        if definition_selected is not None:
-            st.write(definition(definition_selected))
+    # with st.sidebar.expander("See definition"):
+    #     if definition_selected is not None:
+    #         st.write(definition(definition_selected))
         
 
 
 
 
-    container1 = st.container(border = True)
+    # container1 = st.container(border = True)
     search_results = []
     tracks = []
     songs = []
@@ -198,49 +207,47 @@ if page == 'Spotify API 🎧':
     albums = []
 
 
-    with container1:
-        if search_keyword is not None and len(str(search_keyword)) > 0:
-            if search_selected == 'Song/Track':
-                st.write("Start song/track search")
-                container = st.container(border = True)
-                with container:
-                    tracks = sp.search(q='track:'+search_keyword,type='track', limit=20)
-                    tracks_list = tracks['tracks']['items']
-                    if len(tracks_list) > 0:
-                            for track in tracks_list:
-                                # st.write(f"{track['name']}- By :blue[{track['artists'][0]['name']}]")
-                                search_results.append(track['name'] + "- By -" + track['artists'][0]['name'])
-            elif search_selected == 'Artist':
-                st.write("Start artist search")
-                container = st.container(border = True)
-                with container:
-                    artists = sp.search(q='artist:'+search_keyword,type='artist', limit=20)
-                    artists_list = artists['artists']['items']
-                    if len(artists_list) > 0:
-                        for artist in artists_list:
-                            # st.write(f"{artist['name']}")
-                            search_results.append(artist['name'])
-            elif search_selected == 'Album':
-                st.write("Start album search")
-                container = st.container(border = True)
-                with container:
-                    albums = sp.search(q='album:'+search_keyword,type='album', limit=20)
-                    albums_list = albums['albums']['items']
-                    if len(albums_list) > 0:
-                        for album in albums_list:
-                            # st.write(f"{album['name']}- By :blue[{album['artists'][0]['name']}]")
-                            # print("Album ID: " + album['id'] + " / Artist ID - " + album['artists'][0]['id'])
-                            search_results.append(album['name'] + "- By -" + album['artists'][0]['name'])
+    # with container1:
+    if search_keyword is not None and len(str(search_keyword)) > 0:
+        if search_selected == 'Song/Track 🎧':
+            st.write("**:green[Search from list of songs]**")
+            tracks = sp.search(q='track:'+search_keyword,type='track', limit=20)
+            tracks_list = tracks['tracks']['items']
+            if len(tracks_list) > 0:
+                    for track in tracks_list:
+                        # st.write(f"{track['name']}- By :blue[{track['artists'][0]['name']}]")
+                        search_results.append(track['name'] + "- By -" + track['artists'][0]['name'])
+        elif search_selected == 'Artist 🎸':
+            st.divider()
+            st.write("**:green[Search from list of artists]**")
+            # container = st.container(border = True)
+            # with container:
+            artists = sp.search(q='artist:'+search_keyword,type='artist', limit=20)
+            artists_list = artists['artists']['items']
+            if len(artists_list) > 0:
+                for artist in artists_list:
+                    # st.write(f"{artist['name']}")
+                    search_results.append(artist['name'])
+        elif search_selected == 'Album 💿':
+            st.divider()
+            st.write("**:green[Search from list of albums]**")
+            albums = sp.search(q='album:'+search_keyword,type='album', limit=20)
+            albums_list = albums['albums']['items']
+            if len(albums_list) > 0:
+                for album in albums_list:
+                    # st.write(f"{album['name']}- By :blue[{album['artists'][0]['name']}]")
+                    # print("Album ID: " + album['id'] + " / Artist ID - " + album['artists'][0]['id'])
+                    search_results.append(album['name'] + "- By -" + album['artists'][0]['name'])
 
         selected_album = None
         selected_artist = None
         selected_track = None
-        if search_selected == 'Song/Track':
-            selected_track = st.selectbox("Select your song/track: ", search_results)
-        elif search_selected == 'Artist':
-            selected_artist = st.selectbox("Select your artist: ", search_results)
-        elif search_selected == 'Album':
-            selected_album = st.selectbox("Select your album: ", search_results)
+        if search_selected == 'Song/Track 🎧':
+            selected_track = st.selectbox("Select a song/track", search_results)
+        elif search_selected == 'Artist 🎸':
+            selected_artist = st.selectbox("Select an artist ", search_results)
+        elif search_selected == 'Album 💿':
+            selected_album = st.selectbox("Select an album ", search_results)
 
 
         if selected_track is not None and len(tracks) > 0:
@@ -273,18 +280,23 @@ if page == 'Spotify API 🎧':
                 #             st.audio(track['preview_url'][idx], format = 'audio/mp3')
                 st.image(image)
                 st.divider()
-                track_choices = ['Song Features', 'Similar Songs Recommendation']
-                selected_track_choice = st.sidebar.selectbox('Please select track choice: ', track_choices)
-                if selected_track_choice == 'Song Features':
+                track_choices = ['Song Features ♭', 'Similar Songs Recommendations 🩵']
+                selected_track_choice = st.sidebar.selectbox('More options', track_choices)
+                # definition_choices = ['Acousticness', 'Danceability', 'Energy', 'Instrumentalness', 'Key', 'Liveness', 'Loudness', 'Speechiness', 'Tempo', 'Time Signature', 'Valence', 'Song Duration']
+                # definition_selected = st.sidebar.selectbox("Select a feature to define: ", definition_choices)
+                # with st.sidebar.expander("See definition"):
+                #     if definition_selected is not None:
+                #         st.write(definition(definition_selected))
+                if selected_track_choice == 'Song Features ♭':
                     track_features = sp.audio_features(track_id)
                     df2 = pd.DataFrame(track_features, index = [0])
-                    df2_features = df2.loc[: ,['acousticness', 'danceability', 'energy',    'instrumentalness',     'liveness', 'speechiness', 'valence']]
+                    df2_features = df2.loc[: ,['acousticness', 'danceability', 'energy', 'instrumentalness',     'liveness', 'speechiness', 'valence']]
                     st.subheader(":orange[Features of the song]")
                     st.dataframe(df2_features)
                     st.divider()
                     st.subheader(":orange[Polarplot of the song]")
                     polarplot.feature_plot(df2_features)
-                elif selected_track_choice == 'Similar Songs Recommendation':
+                elif selected_track_choice == 'Similar Songs Recommendations 🩵':
                     token = songrecommendations.get_token(SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET)
                     similar_songs_json = songrecommendations.get_track_recommendations(track_id, token)
                     recommendation_list = similar_songs_json['tracks']
@@ -309,28 +321,30 @@ if page == 'Spotify API 🎧':
                         album_uri = album['uri']
                         album_name = album['name']
             if album_id is not None and album_uri is not None:
-                st.write(f"Collecting all the tracks for the album: :green[{album_name}]")
+                st.write(f"Collecting all the tracks for the album: :orange[{album_name}]")
                 album_tracks = sp.album_tracks(album_id)
                 df_album_tracks = pd.DataFrame(album_tracks['items'])
                 # st.dataframe(df_album_tracks)
                 df_tracks_min = df_album_tracks.loc[:,['id', 'name', 'duration_ms', 'explicit', 'preview_url']]
                 # st.dataframe(df_tracks_min)
-                for idx in df_tracks_min.index:
-                    with st.container():
-                        col1, col2, col3, col4 = st.columns((4, 4, 1, 1))
-                        col11, col12 = st.columns((8, 2))
-                        col1.write(f":red[Spotify ID] - {df_tracks_min['id'][idx]}")
-                        col2.write(f":red[Name of Song] - {df_tracks_min['name'][idx]}")
+                with st.container(border = True):
+                    col01, col02, col03, col04 = st.columns((4, 2, 2, 4))
+                    col01.write("**:red[Track name]**")
+                    col02.write("**:red[Duration]**")
+                    for index, idx in enumerate(df_tracks_min.index, start=1):
+                        col1, col2, col3, col4 = st.columns((4, 2, 2, 4))
+                        col11, col12 = st.columns((5, 5))
+                        col1.write(f"{index}. **{df_tracks_min['name'][idx]}**")
                         def ms_to_min(input):
                            return round((input/60000),2)
                         min = ms_to_min(df_tracks_min['duration_ms'][idx])
-                        col3.write(f":red[Duration] - {min} min")
-                        col4.write(f":red[Explicit Song?]- {df_tracks_min['explicit'][idx]}")
+                        col2.write(f"**{min} min**")
+                        col3.write(f":red[Explicit?] {df_tracks_min['explicit'][idx]}")
+                        col4.write(f":red[Spotify ID] {df_tracks_min['id'][idx]}")
                         if df_tracks_min['preview_url'][idx] is not None:
                             col11.audio(df_tracks_min['preview_url'][idx], format = 'audio/mp3')
-                            col12.write(f"[link to preview]({df_tracks_min['preview_url'][idx]})")
-                                
-                        st.divider()
+                            col12.write(f"[preview link]({df_tracks_min['preview_url'][idx]})")
+                            st.title("#")
 
 
         if selected_artist is not None and len(artist) > 0:
@@ -344,62 +358,76 @@ if page == 'Spotify API 🎧':
                         artist_uri = artist['uri']
 
             if artist_id is not None:
-                artist_choice = ['Albums', 'Top Songs']
-                selected_artist_choice = st.sidebar.selectbox('Select artist choice', artist_choice)
+                artist_choice = ['Albums 💿', 'Top Songs 🎵']
+                selected_artist_choice = st.sidebar.selectbox('More from artist', artist_choice)
 
             if selected_artist_choice is not None:
-                if selected_artist_choice == 'Albums':
+                if selected_artist_choice == 'Albums 💿':
                     artist_uri = 'spotify:artist:' + artist_id
                     album_result = sp.artist_albums(artist_uri, album_type = 'album')
                     all_albums = album_result['items']
-                    col1, col2, col3 = st.columns((6, 4, 2))
-                    col1.write('Album Name')
-                    col2.write('Release Date')
-                    col3.write('Total tracks in album')
-                    for album in all_albums:
-                        col1.write(album['name'])
-                        col2.write(album['release_date'])
-                        col3.write(album['total_tracks'])
-                elif selected_artist_choice == 'Top Songs':
+                    container = st.container(border = True)
+                    with container:
+                        col01, col02, col03 = st.columns((8, 7, 5))
+                        col02.subheader('Album Information')
+                        col1, col2, col3 = st.columns((6, 4, 2))
+                        col1.write(':red[Album Names]')
+                        col2.write(':red[Release Dates]')
+                        col3.write(':red[Total tracks in album]')
+                        # for album in all_albums:
+                        for index, album in enumerate(all_albums, start=1):
+                            col1.write(f"{index}. {album['name']}")
+                            col2.write(album['release_date'])
+                            col3.write(album['total_tracks'])
+                elif selected_artist_choice == 'Top Songs 🎵':
+                    st.write(f"Gathering top songs from artist: :orange[{selected_artist}]")
                     artist_uri = 'spotify:artist:' + artist_id
                     top_songs_result = sp.artist_top_tracks(artist_uri)
-                    for track in top_songs_result['tracks']:
-                        with st.container():
-                            col1, col2, col3, col4 = st.columns((4, 4, 2, 2))
-                            col11, col12 = st.columns((8, 2))
-                            col21, col22 = st.columns((11, 1))
-                            col31, col32 = st.columns((11, 1))
-                            col1.write(track['id'])
-                            col2.write(track['name'])
-                            if track['preview_url'] is not None:
-                                col11.write(track['preview_url'])
-                                with col12:
-                                    st.audio(track['preview_url'], format = 'audio/mp3')
-                            with col3:
-                                def feature_requested():
-                                    track_features = sp.audio_features(track['id'])
-                                    df2 = pd.DataFrame(track_features, index = [0])
-                                    df2_features = df2.loc[: ,['acousticness', 'danceability', 'energy',    'instrumentalness', 'liveness', 'speechiness', 'valence']]
-                                    with col21:
-                                        st.dataframe(df2_features)
-                                    with col32:
-                                        polarplot.feature_plot(df2_features)
+                    container = st.container(border = True)
+                    with container:
+                        col01, col02, col03, col04 = st.columns((4, 2, 2, 4))
+                        col01.write("**:red[Track Name]**")
 
-                                feature_button_state = st.button('Track Audio Features', key=track['id'],   on_click=feature_requested)
-                            with col4:
+                        for index, track in enumerate(top_songs_result['tracks'], start=1):
+                            
+                            col1, col2, col3, col4 = st.columns((5, 5, 5, 5))
+                            col11, col12 = st.columns((5, 5))
+                            col21, col22 = st.columns((5, 5))
+                            col31, col32 = st.columns((5, 5))
+                        
+                            col1.write(f"**{index}. {track['name']}**")
+
+                            def feature_requested():
+                                track_features = sp.audio_features(track['id'])
+                                df2 = pd.DataFrame(track_features, index = [0])
+                                df2_features = df2.loc[: ,['acousticness', 'danceability', 'energy',    'instrumentalness', 'liveness', 'speechiness', 'valence']]
+                                with col1:
+                                    col21.dataframe(df2_features)
+                                    polarplot.feature_plot(df2_features)
+
+                            feature_button_state = col2.button('Track Audio Features', key=track['id'],   on_click=feature_requested)
+
+                    
+                            with col3:
                                 def similar_songs_requested():
                                     token = songrecommendations.get_token(SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET)
                                     similar_songs_json = songrecommendations.get_track_recommendations(track['id'], token)
                                     recommendation_list = similar_songs_json['tracks']
                                     recommendation_list_df = pd.DataFrame(recommendation_list)
                                     recommendation_df = recommendation_list_df[['name', 'explicit', 'duration_ms',  'popularity']]
-                                    with col21:
-                                        st.dataframe(recommendation_df)
-                                    with col31:
-                                        songrecommendations.song_recommendation_vis(recommendation_df)
+                                    # with col21:
+                                    #     st.dataframe(recommendation_df)
+                                    # with col31:
+                                    #     songrecommendations.song_recommendation_vis(recommendation_df)
 
-                            similar_songs_state = st.button('Similar Songs', key=track['name'],     on_click=similar_songs_requested)
+                            similar_songs_state = col3.button('Similar Songs', key=track['name'],     on_click=similar_songs_requested)
 
+                            col4.write(f":green[Spotify ID] {track['id']}")
+
+                            if track['preview_url'] is not None:
+                                col11.audio(track['preview_url'], format = 'audio/mp3')
+                                col12.write(f"[preview link]({track['preview_url']})")
+                            
                             st.divider()
 
 
