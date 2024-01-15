@@ -31,7 +31,7 @@ Welcome to my Capstone Project, The Song Stats App Featuring Predictive Modellin
   - `polarplot.py`: Contains code for generating polar plots.
   - `songrecommendations.py`: Utilizes Spotify's API to provide song recommendations based on user input.
 
-## How to Navigate the Repository 🧭
+## How to Navigate the Repository 🗺️
 1. **Predictive Modeling Presentation:** 🗣️
    - Explore the `presentation` folder to view the PDF of the predictive modeling presentation.
 
