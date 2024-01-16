@@ -48,8 +48,9 @@ st.set_page_config(page_title = "Song Analyzer App", page_icon = '🎙️', layo
 
 
 # Sidebar
-st.sidebar.title("**Page Selection**")
-page = st.sidebar.selectbox("Select a page", ["Introduction 🎤", "Spotify API 🎧", "The Song Popularity Dataset 📚", "Explore the Dataset 🔍", "Modeling ⚙️", "Predict Song Popularity 🔮"])
+st.sidebar.image("https://images.ctfassets.net/23aumh6u8s0i/2Qhstbnq6i34wLoPoAjWoq/9f66f58a22870df0d72a3cbaf77ce5b6/streamlit_hero.jpg", width = 275, caption = 'Built with Streamlit 🎈')
+st.sidebar.subheader("**:orange[Page Selection]**")
+page = st.sidebar.selectbox("Select a page", ["Introduction 👋🏻", "Spotify API 🎧", "The Song Popularity Dataset 📑", "Explore the Dataset 📊", "Modeling ⚙️", "Predict Song Popularity 🔮"])
 
 
 definition_choices = ['Acousticness', 'Danceability', 'Energy', 'Instrumentalness', 'Key', 'Liveness', 'Loudness', 'Speechiness', 'Tempo', 'Time Signature', 'Valence', 'Song Duration']
@@ -87,7 +88,7 @@ def definition(definition_selected):
 
 
 # Build a homepage
-if page == "Introduction 🎤":
+if page == "Introduction 👋🏻":
 
     col1, col2, col3_spacer = st.columns([3, 1.5, 0.1])
 
@@ -95,7 +96,7 @@ if page == "Introduction 🎤":
         
         # container = st.container(border = True)
         # with container:
-            st.title("♫ :blue[Explore and Analyze Your Songs] ♫")
+            st.title(" :red[Explore and Analyze Your Songs] ♩♫♪♬")
             st.subheader(":grey[With] ✨ :rainbow[The Song Stats App] ✨")
             st.divider()
             st.markdown("👋🏻 Hello there! Welcome to Ann's Song Analysis Explorer App. Would you like to know if your next song will become a hit? With this app, you have the ability to predict whether or not your song will gain popularity by looking at specific musical features based off the [Song Popularity Dataset](https://www.kaggle.com/datasets/yasserh/song-popularity-dataset/data?select=song_data.csv).")  
@@ -170,7 +171,7 @@ if page == 'Spotify API 🎧':
     st_lottie(music_icon, speed = 1, height = 75)
 
     st.sidebar.divider()
-    st.sidebar.title("Spotify Search Options")
+    st.sidebar.subheader(":green[Spotify] Search Options")
     search_choices = ['Song/Track 🎧', 'Artist 🎸', 'Album 💿']
     search_selected = st.sidebar.selectbox("Search choice ", search_choices)
 
@@ -251,53 +252,49 @@ if page == 'Spotify API 🎧':
                         track_album = track['album']['name']
                         img_album = track['album']['images'][1]['url']
                         songrecommendations.save_album_image(img_album, track_id)
+                        song_preview = track['preview_url']
+                            
             selected_track_choice = None
             if track_id is not None:
                 # albums_list = albums['albums']['items']
                 image = songrecommendations.get_album_image(track_id)
-                # if track_id is not None and track_uri is not None:
-                #     album_tracks = sp.album_tracks(track_id)
-                #     df_album_tracks = pd.DataFrame(album_tracks['items'])
-                #     # # st.dataframe(df_album_tracks)
-                #     df_tracks_min = df_album_tracks.loc[:,['preview_url']]
-                #     for idx in df_tracks_min['tracks']:
-                #         if df_tracks_min['preview_url'][idx] is not None:
-                #             st.audio(track['preview_url'][idx], format = 'audio/mp3')
                 st.image(image)
+                if song_preview is not None:
+                    st.audio(song_preview, format = 'audio/mp3')
                 st.divider()
                 track_choices = ['Song Features ♭', 'Similar Songs Recommendations 🩵']
                 selected_track_choice = st.sidebar.selectbox('More options', track_choices)
-                # definition_choices = ['Acousticness', 'Danceability', 'Energy', 'Instrumentalness', 'Key', 'Liveness', 'Loudness', 'Speechiness', 'Tempo', 'Time Signature', 'Valence', 'Song Duration']
-                # definition_selected = st.sidebar.selectbox("Select a feature to define: ", definition_choices)
-                # with st.sidebar.expander("See definition"):
-                #     if definition_selected is not None:
-                #         st.write(definition(definition_selected))
+
                 if selected_track_choice == 'Song Features ♭':
-                    track_features = sp.audio_features(track_id)
-                    df2 = pd.DataFrame(track_features, index = [0])
-                    df2_features = df2.loc[: ,['acousticness', 'danceability', 'energy', 'instrumentalness',     'liveness', 'speechiness', 'valence']]
-                    col1, col2, = st.columns((5,5))
-                    col1.subheader(":red[Audio Features]")
-                    col1.dataframe(df2_features)
-                    col2.subheader(":red[Polarplot]")
-                    with col2:
-                        polarplot.feature_plot(df2_features)
+                    with st.container(border = True):
+                        track_features = sp.audio_features(track_id)
+                        df2 = pd.DataFrame(track_features, index = [0])
+                        df2_features = df2.loc[: ,['acousticness', 'danceability', 'energy', 'instrumentalness',     'liveness', 'speechiness', 'valence']]
+                        col1, col2, = st.columns((5,5))
+                        col1.subheader(":green[Audio Features]")
+                        col1.dataframe(df2_features)
+                        col2.subheader(":green[Polarplot]")
+                        with col2:
+                            polarplot.feature_plot(df2_features)
+
+
                 elif selected_track_choice == 'Similar Songs Recommendations 🩵':
-                    token = songrecommendations.get_token(SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET)
-                    similar_songs_json = songrecommendations.get_track_recommendations(track_id, token)
-                    recommendation_list = similar_songs_json['tracks']
-                    recommendation_list_df = pd.DataFrame(recommendation_list)
-                    # st.dataframe(recommendation_list_df)
-                    recommendation_df = recommendation_list_df[['name', 'explicit', 'duration_ms', 'popularity']]
-                    col1, col2, = st.columns((5,5))
-                    col1.write(":red[Similar Songs Recommendation]")
-                    col1.dataframe(recommendation_df)
-                    # st.write("Recommendations...")
-                    col2.write(":red[Similar Songs Graph]")
-                    with col2:
+                    with st.container(border = True):
+                        token = songrecommendations.get_token(SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET)
+                        similar_songs_json = songrecommendations.get_track_recommendations(track_id, token)
+                        recommendation_list = similar_songs_json['tracks']
+                        recommendation_list_df = pd.DataFrame(recommendation_list)
+                        recommendation_df = recommendation_list_df[['name', 'explicit', 'duration_ms', 'popularity']]
+                        st.subheader(":green[Similar Songs Recommendation]")
+                        st.dataframe(recommendation_df)
+                        st.subheader(":green[Similar Songs Graph]")
+                        st.write("Red circle means explicit. Size of circle based on popularity.")
                         songrecommendations.song_recommendation_vis(recommendation_df)
             else:
                 st.write("Please select a track from the list")
+     
+            tip_container = st.container(border = True)
+            tip_container.write("💡 **:red[Tip]**- Check out more song options in the sidebar")
 
         elif selected_album is not None and len(albums) > 0:
             albums_list = albums['albums']['items']
@@ -371,7 +368,7 @@ if page == 'Spotify API 🎧':
                             col3.write(album['total_tracks'])
                 elif selected_artist_choice == 'Top Songs 🎵':
                     col_df, col_plot = st.columns((5,5))
-                    col_rec_list, col_graph = st.columns((5, 5))
+                    col_rec_list, col_graph = st.columns((5, 8))
                     st.write(f"Gathering top songs from artist: :orange[{selected_artist}]")
                     artist_uri = 'spotify:artist:' + artist_id
                     top_songs_result = sp.artist_top_tracks(artist_uri)
@@ -411,10 +408,11 @@ if page == 'Spotify API 🎧':
                                     recommendation_list_df = pd.DataFrame(recommendation_list)
                                     recommendation_df = recommendation_list_df[['name', 'explicit', 'duration_ms',  'popularity']]
                                     with col_rec_list:
-                                        st.write(":red[Similar Songs List]")
-                                        st.dataframe(recommendation_df)
+                                        st.write("**:red[Similar Songs List]**")
+                                        st.dataframe(recommendation_df, hide_index = True)
                                     with col_graph:
-                                        st.write(":red[Similar Songs Based on Explicitness, Duration, Popularity]")
+                                        st.write("**:red[Similar Songs Based on Explicitness, Duration, Popularity]**")
+                                        st.write("Red circle means explicit. Size of circle based on popularity.")
                                         songrecommendations.song_recommendation_vis(recommendation_df)
 
                             similar_songs_state = col3.button('Similar Songs', key=track['name'],     on_click=similar_songs_requested)
@@ -427,6 +425,16 @@ if page == 'Spotify API 🎧':
                             
                             st.divider()
 
+            tip_container = st.container(border = True)
+            tip_container.write("💡 **:red[Tip]**- Check out more from artist in the sidebar")
+
+    st.sidebar.divider()
+    st.sidebar.subheader(":violet[Audio] Definitions")
+    definition_selected = st.sidebar.selectbox("Select a feature to define", definition_choices)
+
+    with st.sidebar.expander("See definition"):
+        if definition_selected is not None:
+            st.write(definition(definition_selected))
 
 
 
@@ -436,10 +444,13 @@ if page == 'Spotify API 🎧':
 
 
 
-if page == "The Song Popularity Dataset 📚":
+
+
+if page == "The Song Popularity Dataset 📑":
     st.title(":rainbow[The Song Popularity Dataset] 🔢")
 
-    st.sidebar.title("Get the definition")
+    st.sidebar.divider()
+    st.sidebar.subheader(":violet[Audio] Definitions")
     definition_selected = st.sidebar.selectbox("Select a feature to define", definition_choices)
 
     with st.sidebar.expander("See definition"):
@@ -515,9 +526,9 @@ if page == "The Song Popularity Dataset 📚":
 
 
 # Build EDA page
-if page == "Explore the Dataset 🔍":
+if page == "Explore the Dataset 📊":
 
-    st.sidebar.title("Get the definition")
+    st.sidebar.subheader(":violet[Audio] Definitions")
     definition_selected = st.sidebar.selectbox("Select a feature to define", definition_choices)
 
     with st.sidebar.expander("See definition"):
@@ -527,12 +538,12 @@ if page == "Explore the Dataset 🔍":
     col1_spacer, col1, col2, col3_spacer = st.columns([0.1, 3, 2, 0.1])
 
     with col1:
-        st.title("🎼 Exploratory Data Analysis (EDA) 🔍")
+        st.title("🎼 :blue[Exploratory Data Analysis] (EDA) 🔍")
         st.subheader("**Let your :rainbow[curiosity] take over!**")
         st.write("In this page, you can :blue[explore] the data by inputing :green[features] into the select boxes, which automatically generates different :orange[data visualizations] based on your selected choices!")
         container = st.container(border = True)
         with container:
-            st.write("The features are based on the features in The Song Popularity Dataset")
+            st.write("*The features are based on the features in The Song Popularity Dataset*")
             st.write("These features include:")
             col11, col12, col13 = st.columns((3, 3, 3,))
             col11.markdown('- Acousticness') 
@@ -560,7 +571,7 @@ if page == "Explore the Dataset 🔍":
         st_lottie(lottie_eda, speed=1, height=260, key="initial")
         container2 = st.container(border = True)
         with container2:
-            st.subheader("Define a feature")
+            st.subheader(":blue[Define a feature] ♪")
             selected_feature = st.selectbox('Pick a feature you would like to define', ('Acousticness', 'Danceability', 'Energy', 'Instrumentalness', 'Key', 'Liveness', 'Loudness', 'Speechiness', 'Tempo', 'Time Signature', 'Valence', 'Song Duration'), index = 0, placeholder = "Choose an option")
             def define_feature(selected_feature):
                 if selected_feature == 'Acousticness':
@@ -739,8 +750,8 @@ if page == "Explore the Dataset 🔍":
 # Build Modeling Page
 if page == "Modeling ⚙️":
 
-    st.title("⚙️ How Machine Learning Modelling Works 🤖🎤")
-    st.markdown("**On this page, you can see how well different :orange[machine learning models] make :violet[predictions] on :red[song popularity]!**")
+    st.title("⚙️ How :orange[Machine Learning Modelling] Works 🤖")
+    st.markdown("**On this page, you can see how well different :orange[machine learning models] make :violet[predictions] on 🎤 :red[song popularity]!**")
     st.write("There are two main types of Machine Learning Models: Machine Learning Classification (where the response belongs to a set of classes) and Machine Learning Regression(where the response is continuous). In this page, we can choose between three Machine Learning _Classification_ Models: :orange[_k_-Nearest Neighbor (KNN)], :blue[Logistic Regression], and :green[Random Forest]. **:grey[To learn about the different types of machine learning models, click the link found]** [here](https://www.mathworks.com/discovery/machine-learning-models.html#:~:text=There%20are%20two%20main%20types,where%20the%20response%20is%20continuous).")
 
     def load_lottieurl(url: str):
@@ -838,7 +849,7 @@ if page == "Modeling ⚙️":
             container = st.container(border=True)
             container.subheader(":blue[Evaluation]")
             container.text(f"Accuracy score on training dataset: {round(model.score(X_train, y_train)*100, 2)}%")
-            container.write(f":orange[Accuracy score on testing dataset]: **:red[{round(model.score(X_test, y_test)*100, 2)}%]** ← ------ The testing score is compared to :orange[Mid-High Popularity] baseline score.")
+            container.write(f"**:orange[Accuracy score on testing dataset]: :red[{round(model.score(X_test, y_test)*100, 2)}%] ← ------ The testing score is compared to :orange[Mid-High Popularity] baseline score.**")
             container.image("https://pbs.twimg.com/media/EegSVtOXkAAcI_l.jpg")
 
             # Confusion Matrix
@@ -860,14 +871,14 @@ if page == "Modeling ⚙️":
 # Build Predictions Page
 if page == "Predict Song Popularity 🔮":
 
-    st.sidebar.title("Get the definition")
+    st.sidebar.subheader(":violet[Audio] Definitions")
     definition_selected = st.sidebar.selectbox("Select a feature to define", definition_choices)
 
     with st.sidebar.expander("See definition"):
         if definition_selected is not None:
             st.write(definition(definition_selected))
 
-    st.title("♫ Predictions 🔮")
+    st.title("♪ :violet[Predictions] 🔮")
     st.markdown("**On this page, you can make :violet[predictions] which :red[popularity category] a song will fit in based on features contained in the dataset using the :orange[Machine Learning Classification Model] of your choice!**")
     def load_lottieurl(url: str):
             r = requests.get(url)
@@ -885,7 +896,8 @@ if page == "Predict Song Popularity 🔮":
     container2.dataframe(df)
 
 
-    container.subheader("Input your values ✏️⬇")
+    container.subheader("Input your values 📝")
+    container.write("Default values from :orange['Mr.Brightside'] By The Killers")
 
     # age_num = container.number_input("What\'s the age of the passenger? Pick an age from 1 to 100", min_value = 1, max_value = 100, step = 1, value=None, placeholder="Type a number...")
     # if age_num:
@@ -894,32 +906,32 @@ if page == "Predict Song Popularity 🔮":
     #     container2.write(":red[Please enter the age]")
 
     acousticness = container.number_input("Acousticness (0.0 to 100.0)", min_value = 0.0, max_value = 100.0, step = 1.0, 
-    value=1.0, placeholder="Type a number...")
+    value=0.00108, placeholder="Type a number...")
           
-    danceability = container.number_input("Danceability (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.50, placeholder="Type a number...")
+    danceability = container.number_input("Danceability (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.33, placeholder="Type a number...")
 
-    energy = container.number_input("Energy (Input a number between 0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.50, placeholder="Type a number...")
+    energy = container.number_input("Energy (Input a number between 0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.936, placeholder="Type a number...")
 
     instrumentalness = container.number_input("Instrumentalness (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.01, placeholder="Type a number...")
 
-    key = container.number_input("Key (0 to 11)", min_value = 0, max_value = 11, step = 1, value=5, placeholder="Type a number...")
+    key = container.number_input("Key (0 to 11)", min_value = 0, max_value = 11, step = 1, value=1, placeholder="Type a number...")
 
-    liveness = container.number_input("Liveness (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.5, placeholder="Type a number...")    
+    liveness = container.number_input("Liveness (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.0926, placeholder="Type a number...")    
 
-    loudness = container.number_input("Loudness (-40.0 to 2.0)", min_value = -60.0, max_value = 0.0, step = 1.0, value=-25.0, placeholder="Type a number...")     
+    loudness = container.number_input("Loudness (-40.0 to 2.0)", min_value = -60.0, max_value = 0.0, step = 1.0, value=-3.66, placeholder="Type a number...")     
 
     audio_mode = container.radio("What's the audio mode?",
     [0, 1], index=1,)
 
-    speechiness = container.number_input("Speechiness (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.01, placeholder="Type a number...")    
+    speechiness = container.number_input("Speechiness (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.0917, placeholder="Type a number...")    
 
-    tempo = container.number_input("Tempo (1 to 250)", min_value = 1, max_value = 250, step = 1, value=125, placeholder="Type a number...")   
+    tempo = container.number_input("Tempo (1 to 250)", min_value = 1, max_value = 250, step = 1, value=148, placeholder="Type a number...")   
 
     time_signature = container.number_input("Time Signature (0 to 5)", min_value = 0, max_value = 5, step = 1, value=4, placeholder="Type a number...")  
 
-    audio_valence  = container.number_input("Valence (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.5, placeholder="Type a number...")
+    audio_valence  = container.number_input("Valence (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.234, placeholder="Type a number...")
 
-    song_duration_min =container.number_input("What is the duration of the song in minutes? (Max 30 min)", min_value = 0.1, max_value = 30.00, step = 1.0, value=3.0, placeholder="Type a number...") 
+    song_duration_min =container.number_input("What is the duration of the song in minutes? (Max 30 min)", min_value = 0.1, max_value = 30.00, step = 1.0, value=3.71, placeholder="Type a number...") 
 
     # Your features must be in order that the model was trained on
     user_input = pd.DataFrame({
@@ -996,6 +1008,7 @@ if page == "Predict Song Popularity 🔮":
             else:
                 container2.header(":red[Missing inputs]. Please recheck your inputs.")
 
-
+st.sidebar.divider()
+st.sidebar.write("Created wtih ❤️ by [Ann](https://www.linkedin.com/in/ann-daniel-celestino-459333184)")
 st.divider()
 st.write("🔧 Last Updated: January 12, 2024")

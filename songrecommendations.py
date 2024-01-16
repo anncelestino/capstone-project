@@ -34,13 +34,13 @@ def get_track_recommendations(seed_tracks,token):
 
 def song_recommendation_vis(reco_df):
     
-    reco_df['duration_min'] = round(reco_df['duration_ms'] / 1000, 0)
+    reco_df['duration_min'] = round(reco_df['duration_ms'] / 60000, 0)
     reco_df["popularity_range"] = reco_df["popularity"] - (reco_df['popularity'].min() - 1)
 
-    plt.figure(figsize=(15, 6), facecolor=(.9, .9, .9))    
+    plt.figure(figsize=(15, 7), facecolor= "mistyrose")    
 
-    x = reco_df['name']
-    y = reco_df['duration_min']
+    y = reco_df['name']
+    x = reco_df['duration_min']
     s = reco_df['popularity_range']*20
 
     color_labels = reco_df['explicit'].unique()
@@ -48,8 +48,12 @@ def song_recommendation_vis(reco_df):
     color_map = dict(zip(color_labels, rgb_values))
 
     plt.scatter(x, y, s, alpha=0.7, c=reco_df['explicit'].map(color_map))
-    plt.xticks(rotation=45)
-    plt.legend()
+    plt.xticks(fontsize= 15)
+    plt.yticks(fontsize = 15)
+    plt.title('Similar Songs Based on Duration, Popularity, and Explicitness', fontsize = 24)
+    plt.ylabel('Similar Songs', fontsize = 15)
+    plt.xlabel('Song Duration in Minutes', fontsize = 15)
+
     # show the graph
     plt.show()
 
