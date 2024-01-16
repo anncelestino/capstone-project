@@ -952,7 +952,7 @@ if page == "Predict Song Popularity 🔮":
 
     st.title("♪ :violet[Predictions] 🔮")
     st.markdown("On this page, you can make :violet[predictions] as to which :red[popularity category] a song will fit in based on features contained in the dataset using the :orange[Machine Learning Classification Model] of your choice!")
-    st.write("*Disclaimer: While these predictions serve as a valuable starting point for assessing songs, it's crucial to consider them as just one component of the larger picture. The ultimate outcome of a song is influenced by various other factors.*")
+    st.write("*Disclaimer: While these predictions serve as a valuable starting point for assessing songs, it's crucial to consider them as just one component of the larger picture. The ultimate outcome of a song's popularity is influenced by various other factors.*")
 
     def load_lottieurl(url: str):
             r = requests.get(url)
