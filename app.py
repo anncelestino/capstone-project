@@ -304,7 +304,7 @@ if page == 'Spotify API 🎧':
                         df2_features = df2.loc[: ,['acousticness', 'danceability', 'energy', 'instrumentalness',     'liveness', 'speechiness', 'valence']]
                         col1, col2, = st.columns((5,5))
                         col1.subheader(":blue[Audio Features]")
-                        col1.dataframe(df2_features)
+                        col1.dataframe(df2_features, hide_index = True)
                         col2.subheader(":blue[Polarplot of Audio Features]")
                         with col2:
                             polarplot.feature_plot(df2_features)
