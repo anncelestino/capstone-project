@@ -50,7 +50,7 @@ st.set_page_config(page_title = "Song Analyzer App", page_icon = '🎙️', layo
 # Sidebar
 st.sidebar.image("https://images.ctfassets.net/23aumh6u8s0i/2Qhstbnq6i34wLoPoAjWoq/9f66f58a22870df0d72a3cbaf77ce5b6/streamlit_hero.jpg", width = 275, caption = 'Built with Streamlit 🎈')
 st.sidebar.subheader("**:orange[Page Selection]**")
-page = st.sidebar.selectbox("Select a page", ["Introduction 👋🏻", "Spotify API 🎧", "The Song Popularity Dataset 📑", "Explore the Dataset 📊", "Modeling ⚙️", "Predict Song Popularity 🔮"])
+page = st.sidebar.selectbox("Select a page", ["Introduction 👋🏻", "Spotify API 🎧", "The Song Popularity Dataset 📑", "Explore the Dataset 📊", "Machine Learning Modeling 🤖", "Predict Song Popularity 🔮"])
 
 
 definition_choices = ['Acousticness', 'Danceability', 'Energy', 'Instrumentalness', 'Key', 'Liveness', 'Loudness', 'Speechiness', 'Tempo', 'Time Signature', 'Valence', 'Song Duration']
@@ -752,7 +752,7 @@ if page == "Explore the Dataset 📊":
 
 
 # Build Modeling Page
-if page == "Modeling ⚙️":
+if page == "Machine Learning Modeling 🤖":
 
     st.title("⚙️ How :orange[Machine Learning Modelling] Works 🤖")
     st.markdown("**On this page, you can see how well different :orange[machine learning models] make :violet[predictions] on 🎤 :red[song popularity]!**")
@@ -829,13 +829,19 @@ if page == "Modeling ⚙️":
                     return f':blue[{model}]'
                 elif model_option == 'Random Forest':
                     return f':green[{model}]'
-
+                
+            def use_image(score):
+                if score > 46.11:
+                    return container3.image('https://preview.redd.it/izsegksg4dr21.jpg?auto=webp&s=1808fbbe9d7c5667a95d4376b4757bbd269fbeb4', width = 300)
+                else:
+                    return container3.image('https://media.makeameme.org/created/dont-be-sad-901acc7b3d.jpg', width = 300)
+                
             def use_model(score):
                 if score > 46.11:
                     return f"🎉 The {model_colors(model)} Model beat the Baseline Score! You can use this model to make predictions for this dataset."
-                    st.balloons()
                 else:
                     return f"🌧️ The {model_colors(model)} Model did not beat the basline score 🙅🏻‍♀️... You can probably use another model."
+
             def celebrate(score):
                 if score > 46.11:
                     st.balloons()
@@ -846,6 +852,7 @@ if page == "Modeling ⚙️":
             container3 = st.container(border=True)
             container3.subheader(":blue[Performance]")
             container3.write(use_model_answer)
+            time_to_use_image= use_image(round(model.score(X_test, y_test)*100, 2))
             time_to_celebrate = celebrate(round(model.score(X_test, y_test)*100, 2))
 
 
@@ -854,7 +861,7 @@ if page == "Modeling ⚙️":
             container.subheader(":blue[Evaluation]")
             container.text(f"Accuracy score on training dataset: {round(model.score(X_train, y_train)*100, 2)}%")
             container.write(f"**:orange[Accuracy score on testing dataset]: :red[{round(model.score(X_test, y_test)*100, 2)}%] ← ------ The testing score is compared to :orange[Mid-High Popularity] baseline score.**")
-            container.image("https://pbs.twimg.com/media/EegSVtOXkAAcI_l.jpg")
+            container.image("https://pbs.twimg.com/media/EegSVtOXkAAcI_l.jpg", width = 300)
 
             # Confusion Matrix
             st.subheader(f"Confusion Matrix Using {model_colors(model)} Model")
@@ -1001,7 +1008,8 @@ if page == "Predict Song Popularity 🔮":
     # if user_input is not None:
     # Model Selection
     container2= st.container(border=True)
-    container2.header(":orange[Choose a Machine Learning Classification Model] to use to make your :violet[prediction]")
+    container2.subheader(":orange[Choose a Machine Learning Classification Model] to use to make your :violet[prediction]")
+    container2.write("> To get a refresher on the different Machine Learning models, check the `sidebar` for their descriptions.")
     model_option = container2.selectbox("Please choose a model to use", ["Random Forest", "Logistic Regression", "KNN"])
     
     if model_option:
@@ -1041,12 +1049,12 @@ if page == "Predict Song Popularity 🔮":
                     return f':red{prediction}'
         # make_prediction()
             if prediction == "Low Popularity" or prediction == "Low-Mid Popularity":
-                container2.header(f"{model_colors(model_option)} predicts that this song will have {category_colors(prediction)}. Try inputting different values in certain features to see if the song will become more popular.")
-                container2.image('https://i.imgflip.com/kfmzg.jpg')
+                container2.subheader(f"{model_colors(model_option)} predicts that this song will have {category_colors(prediction)}. Try inputting different values in certain features to see if the song will become more popular. Or try using a different Machine Learning Model.")
+                container2.image('https://i.imgflip.com/kfmzg.jpg', width = 500)
                 st.snow()
             elif prediction == "Mid-High Popularity" or prediction == "High Popularity":
-                container2.header(f"{model_colors(model_option)} predicts that this song will have ✨{category_colors(prediction)} ✨! :rainbow[Congratulations]!")
-                container2.image('https://i.redd.it/rc6bq0lmxka51.jpg')
+                container2.subheader(f"{model_colors(model_option)} predicts that this song will have ✨{category_colors(prediction)} ✨! :rainbow[Congratulations]!")
+                container2.image('https://i.redd.it/rc6bq0lmxka51.jpg', width = 500)
                 st.balloons()
             else:
                 container2.header(":red[Missing inputs]. Please recheck your inputs.")
