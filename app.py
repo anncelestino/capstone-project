@@ -269,6 +269,7 @@ if page == 'Spotify API 🎧':
             tracks_list = tracks['tracks']['items']
             track_id = None
             track_uri = None
+            song_preview = None
             if len(tracks_list) > 0:
                 for track in tracks_list:
                     str_temp = track['name'] + "- By -" + track['artists'][0]['name']
@@ -290,6 +291,8 @@ if page == 'Spotify API 🎧':
                 st.image(image)
                 if song_preview is not None:
                     st.audio(song_preview, format = 'audio/mp3')
+                else:
+                    st.write("*no preview available for song*")
                 st.divider()
                 track_choices = ['Song Features ♭', 'Similar Songs Recommendations 🩵']
                 selected_track_choice = st.sidebar.selectbox('More options', track_choices)
