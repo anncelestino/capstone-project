@@ -139,7 +139,36 @@ if page == "Introduction 👋🏻":
     container = st.container(border=True)
     container.write("💡 **:red[TIP]**: Get started by opening the sidebar by clicking on the arrow on the top left corner. I recommend keeping the sidebar open as more options will pop-up as you explore the app. :orange[Enjoy]! 🎈")
     st.write("***This app was originally created for my Capstone Project at Coding Temple for the purpose of creating an interactive and user-friendly app with the primary focus of analyzing and using machine learning models to make predictions.***")
-    container2 = st.container(border=True)    
+    container2 = st.container(border=True)
+
+    
+    # Use local CSS
+
+    def local_css(file_name):
+        with open(file_name) as f:
+            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html = True)
+
+
+    local_css("style/style.css")
+
+    animation_symbol = "♪"
+    animation_symbol2 = "♫"
+    animation_symbol3 = "♬"
+    animation_symbol4 = "♩"
+
+    st.markdown(
+        f"""
+        <div class="snowflake">{animation_symbol}</div>
+        <div class="snowflake">{animation_symbol4}</div>
+        <div class="snowflake">{animation_symbol2}</div>
+        <div class="snowflake">{animation_symbol3}</div>
+        <div class="snowflake">{animation_symbol}</div>
+        <div class="snowflake">{animation_symbol4}</div>
+        <div class="snowflake">{animation_symbol2}</div>
+        <div class="snowflake">{animation_symbol3}</div>
+        """,
+        unsafe_allow_html=True
+    )
 
 
 
@@ -790,8 +819,8 @@ if page == "Machine Learning Modeling 🤖":
     container2 = st.container(border=True)
     container2.subheader("**The Baseline Score**") 
     container2.write(">The baseline score is often used as a starting point for evaluating the effectiveness of models or algorithms. It provides a clear indication of the minimum level of performance that needs to be exceeded to warrant the implementation of more complex and resource-intesive algorithms. These scores are obtained by adding the value of each of the samples together, then divide by the total number of samples. In Layman's terms, extracting the mean or average. If the score is lower than the mean, then there is no point in using the model.")
-    container2.write(":blue[Low Popularity]: 12.65%")
-    container2.write(":violet[Low-Mid Popularity]: 27.56%")
+    container2.write(":violet[Low Popularity]: 12.65%")
+    container2.write(":blue[Low-Mid Popularity]: 27.56%")
     container2.write(":orange[Mid-High Popularity]: 46.11%")
     container2.write(":red[High Popularity]: 13.68%")
 
@@ -1040,9 +1069,9 @@ if page == "Predict Song Popularity 🔮":
         # Popularity category colors
             def category_colors(prediction):
                 if prediction == 'Low Popularity':
-                    return f':blue{prediction}'
-                elif prediction == 'Low-Mid Popularity':
                     return f':violet{prediction}'
+                elif prediction == 'Low-Mid Popularity':
+                    return f':blue{prediction}'
                 elif prediction == 'Mid-High Popularity':
                     return f':orange{prediction}'
                 elif prediction == 'High Popularity':
