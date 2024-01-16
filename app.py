@@ -156,7 +156,7 @@ if page == 'Spotify API 🎧':
     col1, col1_spacer, col2, col2_spacer = st.columns((2, 0.2, 0.5, 0.2))
     with col1:
         st.title(":green[Spotify] :rainbow[Song Search]")
-        st.write("In this page you can choose a song, album, or artist to view specific features for each. This page uses Spotify's API to generate the songs and data information. :green[Start] by entering your search choice in the sidebar.")
+        st.write("In this page you can choose a song, album, or artist to view specific features for each. This page uses Spotify's API to generate the songs and data information. :green[Start] by picking a search choice in the sidebar or entering a keyword from a song down below.")
     with col2:
         st.image("https://play-lh.googleusercontent.com/cShys-AmJ93dB0SV8kE6Fl5eSaf4-qMMZdwEDKI5VEmKAXfzOqbiaeAsqqrEBCTdIEs")
     
@@ -871,6 +871,7 @@ if page == "Modeling ⚙️":
 # Build Predictions Page
 if page == "Predict Song Popularity 🔮":
 
+    st.sidebar.divider()
     st.sidebar.subheader(":violet[Audio] Definitions")
     definition_selected = st.sidebar.selectbox("Select a feature to define", definition_choices)
 
@@ -878,76 +879,115 @@ if page == "Predict Song Popularity 🔮":
         if definition_selected is not None:
             st.write(definition(definition_selected))
 
+    description_choices = ['k-Nearest Neighbor', 'Logistic Regression', 'Random Forest']
+
+    def description(description_choices):
+        if description_choices == 'k-Nearest Neighbor':
+            return f'KNN is a type of machine learning model that categorizes objects based on the classes of their nearest neighbors in the data set. KNN predictions assume that objects near each other are similar. Distance metrics, such as Euclidean, city block, cosine, and Chebyshev, are used to find the nearest neighbor. Learn more [here](https://towardsdatascience.com/a-simple-introduction-to-k-nearest-neighbors-algorithm-b3519ed98e#:~:text=What%20is%20KNN%3F,how%20its%20neighbours%20are%20classified).' 
+            st.image(("https://pbs.twimg.com/media/FQJEPb6aUAQkbKP.jpg"))
+        if description_choices == 'Logistic Regression':
+            return f'Logistic regression is a special case of regression analysis and is used when the dependent variable is nominally scaled. With logistic regression, it is now possible to explain the dependent variable or estimate the probability of occurrence of the categories of the variable. Learn more [here](https://datatab.net/tutorial/logistic-regression).'
+        if description_choices == 'Random Forest':
+            return f'A Random Forest is like a group decision-making team in machine learning. It combines the opinions of many “trees” (individual models) to make better predictions, creating a more robust and accurate overall model. It combines the output of multiple decision trees to reach a single result. Its ease of use and flexibility have fueled its adoption, as it handles both classification and regression problems. Learn more [here](https://www.ibm.com/topics/random-forest#:~:text=Random%20forest%20is%20a%20commonly,both%20classification%20and%20regression%20problems.).'
+    def images(description_choices):
+        if description_choices == 'k-Nearest Neighbor':
+            return f"https://pbs.twimg.com/media/FQJEPb6aUAQkbKP.jpg"
+        if description_choices == 'Logistic Regression':
+            return f"https://miro.medium.com/v2/resize:fit:958/1*_4lc56CLCUtzgBCPxELJEA.jpeg"
+        if description_choices == 'Random Forest':
+            return f"https://pbs.twimg.com/media/FQJEPb6aUAQkbKP.jpg"
+            
+    st.sidebar.divider()
+    st.sidebar.subheader(":blue[Machine Learning Models] Descriptions")
+    description_selected = st.sidebar.selectbox("Select a model to describe", description_choices)
+
+    with st.sidebar.expander("See description"):
+        if description_selected is not None:
+            st.write(description(description_selected))
+            st.image(images(description_selected))
+
+
     st.title("♪ :violet[Predictions] 🔮")
-    st.markdown("**On this page, you can make :violet[predictions] which :red[popularity category] a song will fit in based on features contained in the dataset using the :orange[Machine Learning Classification Model] of your choice!**")
+    st.markdown("On this page, you can make :violet[predictions] as to which :red[popularity category] a song will fit in based on features contained in the dataset using the :orange[Machine Learning Classification Model] of your choice!")
     def load_lottieurl(url: str):
             r = requests.get(url)
             if r.status_code != 200:
                 return None
             return r.json()    
        
-    lottie_pred = load_lottieurl("https://lottie.host/b83b27e8-ed2b-44ab-83e3-41fe94f9445e/Er8TDYAJrZ.json")        
-    st_lottie(lottie_pred, speed=1, height=250, key="initial")
+    lottie_pred = load_lottieurl("https://lottie.host/f397d1bb-9122-45d7-9d35-85fa5e8034ed/ZFCCFCYBw8.json")        
+    st_lottie(lottie_pred, speed=1, height=300, key="initial")
+
+    def model_colors(model):
+        if model_option == 'KNN':
+            return f':orange[{model}]'
+        elif model_option == 'Logistic Regression':
+            return f':blue[{model}]'
+        elif model_option == 'Random Forest':
+            return f':green[{model}]'
+
 
     container = st.container(border=True)
 
     container2 = st.container(border = True)
-    container2.subheader("Get Inspiration or Compare Your Values to Other Songs")
-    container2.dataframe(df)
+    container2.subheader(":rainbow[Get Inspiration] or Compare Your Values to Other Songs")
+    container2.dataframe(df, hide_index = True)
 
+    with container:
+        col01,col02,col03 = st.columns((5,5,4))
+        col02.subheader("Input your values 📝")
+        st.write("*Default values from :orange['Mr.Brightside'] By The Killers*")
+        col1, col2 = st.columns((5,5))
 
-    container.subheader("Input your values 📝")
-    container.write("Default values from :orange['Mr.Brightside'] By The Killers")
+        # age_num = container.number_input("What\'s the age of the passenger? Pick an age from 1 to 100", min_value = 1, max_value = 100, step = 1, value=None, placeholder="Type a number...")
+        # if age_num:
+        #     container2.write(f'The age is {age_num}')
+        # else:
+        #     container2.write(":red[Please enter the age]")
 
-    # age_num = container.number_input("What\'s the age of the passenger? Pick an age from 1 to 100", min_value = 1, max_value = 100, step = 1, value=None, placeholder="Type a number...")
-    # if age_num:
-    #     container2.write(f'The age is {age_num}')
-    # else:
-    #     container2.write(":red[Please enter the age]")
+        acousticness = col1.number_input("Acousticness 🎸 (0.0 to 100.0)", min_value = 0.0, max_value = 100.0, step = 1.0, 
+        value=0.00108, placeholder="Type a number...")
+            
+        danceability = col2.number_input("Danceability 🕺🏼 (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.33, placeholder="Type a number...")
 
-    acousticness = container.number_input("Acousticness (0.0 to 100.0)", min_value = 0.0, max_value = 100.0, step = 1.0, 
-    value=0.00108, placeholder="Type a number...")
-          
-    danceability = container.number_input("Danceability (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.33, placeholder="Type a number...")
+        energy = col2.number_input("Energy ⚡️ (Input a number between 0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.936, placeholder="Type a number...")
 
-    energy = container.number_input("Energy (Input a number between 0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.936, placeholder="Type a number...")
+        instrumentalness = col1.number_input("Instrumentalness 🎷(0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.01, placeholder="Type a number...")
 
-    instrumentalness = container.number_input("Instrumentalness (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.01, placeholder="Type a number...")
+        key = col2.number_input("Key ♪ (0 to 11)", min_value = 0, max_value = 11, step = 1, value=1, placeholder="Type a number...")
 
-    key = container.number_input("Key (0 to 11)", min_value = 0, max_value = 11, step = 1, value=1, placeholder="Type a number...")
+        liveness = col1.number_input("Liveness 👩🏻‍🎤(0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.0926, placeholder="Type a number...")    
 
-    liveness = container.number_input("Liveness (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.0926, placeholder="Type a number...")    
+        loudness = col2.number_input("Loudness 🔊 (-40.0 to 2.0)", min_value = -60.0, max_value = 0.0, step = 1.0, value=-3.66, placeholder="Type a number...")     
 
-    loudness = container.number_input("Loudness (-40.0 to 2.0)", min_value = -60.0, max_value = 0.0, step = 1.0, value=-3.66, placeholder="Type a number...")     
+        audio_mode = col1.radio("What's the audio mode? 🎙️",
+        [0, 1], index=1,)
 
-    audio_mode = container.radio("What's the audio mode?",
-    [0, 1], index=1,)
+        speechiness = col2.number_input("Speechiness 🗣️ (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.0917, placeholder="Type a number...")    
 
-    speechiness = container.number_input("Speechiness (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.0917, placeholder="Type a number...")    
+        tempo = col1.number_input("Tempo 🥁 (1 to 250)", min_value = 1, max_value = 250, step = 1, value=148, placeholder="Type a number...")   
 
-    tempo = container.number_input("Tempo (1 to 250)", min_value = 1, max_value = 250, step = 1, value=148, placeholder="Type a number...")   
+        time_signature = col2.number_input("Time Signature 🎼 (0 to 5)", min_value = 0, max_value = 5, step = 1, value=4, placeholder="Type a number...")  
 
-    time_signature = container.number_input("Time Signature (0 to 5)", min_value = 0, max_value = 5, step = 1, value=4, placeholder="Type a number...")  
+        audio_valence  = col1.number_input("Valence 🪩 (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.234, placeholder="Type a number...")
 
-    audio_valence  = container.number_input("Valence (0.0 to 1.0)", min_value = 0.0, max_value = 1.0, step = .01, value=0.234, placeholder="Type a number...")
+        song_duration_min =col2.number_input("What is the duration of the song in minutes? ⏳ (Max 30 min)", min_value = 0.1, max_value = 30.00, step = 0.1, value=3.71, placeholder="Type a number...") 
 
-    song_duration_min =container.number_input("What is the duration of the song in minutes? (Max 30 min)", min_value = 0.1, max_value = 30.00, step = 1.0, value=3.71, placeholder="Type a number...") 
-
-    # Your features must be in order that the model was trained on
-    user_input = pd.DataFrame({
-                'acousticness':[acousticness],
-                'danceability':[danceability],
-                'energy':[energy],
-                'instrumentalness':[instrumentalness],
-                'key':[key],
-                'liveness':[liveness],
-                'loudness':[loudness],
-                'audio_mode':[audio_mode],
-                'speechiness':[speechiness],
-                'tempo':[tempo],
-                'time_signature':[time_signature],
-                'audio_valence':[audio_valence],
-                'song_duration_min':[song_duration_min]})
+        # Your features must be in order that the model was trained on
+        user_input = pd.DataFrame({
+                    'acousticness':[acousticness],
+                    'danceability':[danceability],
+                    'energy':[energy],
+                    'instrumentalness':[instrumentalness],
+                    'key':[key],
+                    'liveness':[liveness],
+                    'loudness':[loudness],
+                    'audio_mode':[audio_mode],
+                    'speechiness':[speechiness],
+                    'tempo':[tempo],
+                    'time_signature':[time_signature],
+                    'audio_valence':[audio_valence],
+                    'song_duration_min':[song_duration_min]})
 
 
     # Fitting a model
@@ -958,11 +998,11 @@ if page == "Predict Song Popularity 🔮":
     # if user_input is not None:
     # Model Selection
     container2= st.container(border=True)
-    container2.header("Choose a Machine Learning Classification Model to use to make your prediction")
-    model_option = container2.selectbox("Please choose a model to use", ["KNN", "Logistic Regression", "Random Forest"])
+    container2.header(":orange[Choose a Machine Learning Classification Model] to use to make your :violet[prediction]")
+    model_option = container2.selectbox("Please choose a model to use", ["Random Forest", "Logistic Regression", "KNN"])
     
     if model_option:
-        container2.write(f'You selected: {model_option}')
+        container2.write(f'You selected: {model_colors(model_option)}')
         # Instantiating & fitting selected model
         if model_option == "KNN":
             k_value = container2.slider("Select the number of neighbors (k)", 1, 21, 5, 2)
@@ -998,11 +1038,11 @@ if page == "Predict Song Popularity 🔮":
                     return f':red{prediction}'
         # make_prediction()
             if prediction == "Low Popularity" or prediction == "Low-Mid Popularity":
-                container2.header(f"{model} predicts that this song will have {category_colors(prediction)}. Try inputting different values in certain features to see if the song will become more :rainbow[popular].")
+                container2.header(f"{model_colors(model_option)} predicts that this song will have {category_colors(prediction)}. Try inputting different values in certain features to see if the song will become more popular.")
                 container2.image('https://i.imgflip.com/kfmzg.jpg')
                 st.snow()
             elif prediction == "Mid-High Popularity" or prediction == "High Popularity":
-                container2.header(f"{model} predicts that this song will have ✨{category_colors(prediction)} ✨! :rainbow[Congratulations]!")
+                container2.header(f"{model_colors(model_option)} predicts that this song will have ✨{category_colors(prediction)} ✨! :rainbow[Congratulations]!")
                 container2.image('https://i.redd.it/rc6bq0lmxka51.jpg')
                 st.balloons()
             else:
