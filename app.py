@@ -447,8 +447,9 @@ if page == 'Spotify API 🎧':
 
 
 if page == "The Song Popularity Dataset 📑":
-    st.title(":rainbow[The Song Popularity Dataset] 🔢")
-
+    col01,col02,col03 = st.columns((1.5,5,1))
+    col02.title(":rainbow[The Song Popularity Dataset] 🔢")
+    st.divider()
     st.sidebar.divider()
     st.sidebar.subheader(":violet[Audio] Definitions")
     definition_selected = st.sidebar.selectbox("Select a feature to define", definition_choices)
@@ -457,12 +458,10 @@ if page == "The Song Popularity Dataset 📑":
         if definition_selected is not None:
             st.write(definition(definition_selected))
 
-    col1, col2_spacer, col2, col3_spacer = st.columns([3, 0.2, 1, 0.1])
-    
+    col1, col2 = st.columns([3, 1])
     with col1:
-        container = st.container(border = True)
+        container = st.container(border= True)
         container.subheader(":blue[About the Data] 📝")
-        container.divider()
         container.write("The dataset encompasses numerous rows, each representing individual songs, with accompanying columns presenting detailed information for each song. This information includes the song's name, duration, popularity, and various musical attributes such as danceability, energy, valence, and others. *The original dataset was sourced from Kaggle, accessible [here](https://www.kaggle.com/datasets/yasserh/song-popularity-dataset/data?select=song_data.csv).* For convenience, the dataset can be obtained by selecting the `Download CSV` button!")
         # Download
         @st.cache_data
@@ -475,6 +474,7 @@ if page == "The Song Popularity Dataset 📑":
             data=csv,
             file_name='cleaned_song_data.csv',
             mime='text/csv')
+        st.image("https://storage.googleapis.com/research-production/1/2021/10/Multi-Task-Graph-Learning-2.png", width = 700)
         
     with col2:
         def load_lottieurl(url: str):
@@ -482,26 +482,22 @@ if page == "The Song Popularity Dataset 📑":
             if r.status_code != 200:
                 return None
             return r.json()
-        lottie_music_notes = load_lottieurl("https://lottie.host/944276df-5f52-4b17-b3af-b8835080b516/ESJkVwUri9.json")
-        st_lottie(lottie_music_notes, speed=1, height=200, width = 250, key='inital') 
-        lottie_data_overview = load_lottieurl("https://lottie.host/ff8b9c06-101e-41e2-b2e2-5c0d0c0202d7/8ySYj8rXJN.json")        
-        st_lottie(lottie_data_overview, speed=1, height=100)
+        lottie_music_notes = load_lottieurl("https://lottie.host/101b7889-c559-400b-a6d3-41d3e02bf4ae/3mFOeOrgHn.json")
+        st_lottie(lottie_music_notes, speed=1, height=200, width = 250, key='inital')
 
-    st.write("---")
-    
-    col1,col2 = st.columns([2,2])
-    with col1:
-        st.subheader(":blue[Data Overview]")
-        st.write("**Take a brief look at the Song Popularity Dataset provided below to get a glimpse of our current data!** ↓")
+        lottie_data_overview = load_lottieurl("https://lottie.host/dc30209c-0aeb-47ef-8020-6ea11f527ac5/HDiUXa5jMP.json")        
+        st_lottie(lottie_data_overview, speed=1, height=200)
 
-    with col2:
-        st.image("https://storage.googleapis.com/research-production/1/2021/10/Multi-Task-Graph-Learning-2.png")
+        lottie_data_overview = load_lottieurl("https://lottie.host/b825f3b4-a7de-424b-96c4-8e7c7df111c3/HYjVWWaNCH.json")        
+        st_lottie(lottie_data_overview, speed=0.75, height=200)
 
     container = st.container(border=True)
     container2 = st.container(border = True)
 
     with container:
-        st.write("**Please make your selection(s):**")
+        st.subheader(":red[Data Overview]")
+        st.write("**Take a brief look at the Song Popularity Dataset provided below to get a glimpse of our current data!**")
+        st.write("Please make your selection(s):")
         # Display dataset
         if container.checkbox("**:blue[Data Frame] :grey[(*the entire table*)]**"):
             container2.dataframe(df)
@@ -515,6 +511,7 @@ if page == "The Song Popularity Dataset 📑":
         # Shape
         if container.checkbox("**:orange[Shape] :grey[(*aka # of rows and columns*)]**"):
             container2.write(f"**:grey[There are] :orange[{df.shape[0]}] rows :grey[and] :orange[{df.shape[1]}] columns.**")
+
 
 
 
@@ -567,7 +564,8 @@ if page == "Explore the Dataset 📊":
             if r.status_code != 200:
                 return None
             return r.json()  
-        lottie_eda = load_lottieurl("https://lottie.host/e60ee7ab-a894-45b8-b968-dcd08de24cd8/3VpqpZy1Hr.json")        
+        # lottie_eda = load_lottieurl("https://lottie.host/e60ee7ab-a894-45b8-b968-dcd08de24cd8/3VpqpZy1Hr.json") 
+        lottie_eda = load_lottieurl("https://lottie.host/00e51377-d072-4c2f-b057-36f2f42477e1/MrZJPg6NCe.json")       
         st_lottie(lottie_eda, speed=1, height=260, key="initial")
         container2 = st.container(border = True)
         with container2:
@@ -884,7 +882,6 @@ if page == "Predict Song Popularity 🔮":
     def description(description_choices):
         if description_choices == 'k-Nearest Neighbor':
             return f'KNN is a type of machine learning model that categorizes objects based on the classes of their nearest neighbors in the data set. KNN predictions assume that objects near each other are similar. Distance metrics, such as Euclidean, city block, cosine, and Chebyshev, are used to find the nearest neighbor. Learn more [here](https://towardsdatascience.com/a-simple-introduction-to-k-nearest-neighbors-algorithm-b3519ed98e#:~:text=What%20is%20KNN%3F,how%20its%20neighbours%20are%20classified).' 
-            st.image(("https://pbs.twimg.com/media/FQJEPb6aUAQkbKP.jpg"))
         if description_choices == 'Logistic Regression':
             return f'Logistic regression is a special case of regression analysis and is used when the dependent variable is nominally scaled. With logistic regression, it is now possible to explain the dependent variable or estimate the probability of occurrence of the categories of the variable. Learn more [here](https://datatab.net/tutorial/logistic-regression).'
         if description_choices == 'Random Forest':
@@ -1050,5 +1047,17 @@ if page == "Predict Song Popularity 🔮":
 
 st.sidebar.divider()
 st.sidebar.write("Created wtih ❤️ by [Ann](https://www.linkedin.com/in/ann-daniel-celestino-459333184)")
+st.sidebar.write("#")
+st.sidebar.write("#")
+st.sidebar.write("#")
+with st.sidebar:
+    def load_lottieurl(url: str):
+        r = requests.get(url)
+        if r.status_code != 200:
+            return None
+        return r.json()
+    lottie_data_overview = load_lottieurl("https://lottie.host/7c362cab-b723-4f58-9885-609e3b02a039/dN1W72TpU9.json")        
+    st_lottie(lottie_data_overview, speed=.70, height=200)
+
 st.divider()
-st.write("🔧 Last Updated: January 12, 2024")
+st.write("🔧 Last Updated: January 16, 2024")
