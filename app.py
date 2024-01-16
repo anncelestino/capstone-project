@@ -43,7 +43,7 @@ df = pd.read_csv('data/cleaned_song_data.csv')
 
 
 # Set page title and icon
-st.set_page_config(page_title = "Song Analyzer App", page_icon = '🎙️', layout = 'wide')
+st.set_page_config(page_title = "Song Analyzer App", page_icon = '🎙️', layout = 'wide', initial_sidebar_state = 'expanded')
 
 
 
