@@ -901,7 +901,7 @@ if page == "Predict Song Popularity 🔮":
             return f'A Random Forest is like a group decision-making team in machine learning. It combines the opinions of many “trees” (individual models) to make better predictions, creating a more robust and accurate overall model. It combines the output of multiple decision trees to reach a single result. Its ease of use and flexibility have fueled its adoption, as it handles both classification and regression problems. Learn more [here](https://www.ibm.com/topics/random-forest#:~:text=Random%20forest%20is%20a%20commonly,both%20classification%20and%20regression%20problems.).'
     def images(description_choices):
         if description_choices == 'k-Nearest Neighbor':
-            return f"https://pbs.twimg.com/media/FQJEPb6aUAQkbKP.jpg"
+            return f"https://qph.fs.quoracdn.net/main-qimg-c6a1b46c814fd6347dc54750b57fefa8"
         if description_choices == 'Logistic Regression':
             return f"https://miro.medium.com/v2/resize:fit:958/1*_4lc56CLCUtzgBCPxELJEA.jpeg"
         if description_choices == 'Random Forest':
