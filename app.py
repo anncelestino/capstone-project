@@ -141,7 +141,7 @@ if page == "Introduction 👋🏻":
     st.write("***This app was originally created for my Capstone Project at Coding Temple for the purpose of creating an interactive and user-friendly app with the primary focus of analyzing and using machine learning models to make predictions.***")
     container2 = st.container(border=True)
 
-    
+
     # Use local CSS
 
     def local_css(file_name):
@@ -296,13 +296,16 @@ if page == 'Spotify API 🎧':
 
                 if selected_track_choice == 'Song Features ♭':
                     with st.container(border = True):
+                        col1_spacer, col1, col2_spacer = st.columns((2.5, 7, 0.2))
+                        col1.header(f':green[Stats for {selected_track} 💽]')
+                        st.divider()
                         track_features = sp.audio_features(track_id)
                         df2 = pd.DataFrame(track_features, index = [0])
                         df2_features = df2.loc[: ,['acousticness', 'danceability', 'energy', 'instrumentalness',     'liveness', 'speechiness', 'valence']]
                         col1, col2, = st.columns((5,5))
-                        col1.subheader(":green[Audio Features]")
+                        col1.subheader(":blue[Audio Features]")
                         col1.dataframe(df2_features)
-                        col2.subheader(":green[Polarplot]")
+                        col2.subheader(":blue[Polarplot of Audio Features]")
                         with col2:
                             polarplot.feature_plot(df2_features)
 
