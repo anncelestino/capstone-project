@@ -360,7 +360,7 @@ if page == 'Spotify API 🎧':
                         min = ms_to_min(df_tracks_min['duration_ms'][idx])
                         col2.write(f"**{min} min**")
                         col3.write(f":red[Explicit?] {df_tracks_min['explicit'][idx]}")
-                        col4.write(f":red[Spotify ID] {df_tracks_min['id'][idx]}")
+                        col4.write(f":green[Spotify ID] {df_tracks_min['id'][idx]}")
                         if df_tracks_min['preview_url'][idx] is not None:
                             col11.audio(df_tracks_min['preview_url'][idx], format = 'audio/mp3')
                             col12.write(f"[preview link]({df_tracks_min['preview_url'][idx]})")
@@ -952,6 +952,8 @@ if page == "Predict Song Popularity 🔮":
 
     st.title("♪ :violet[Predictions] 🔮")
     st.markdown("On this page, you can make :violet[predictions] as to which :red[popularity category] a song will fit in based on features contained in the dataset using the :orange[Machine Learning Classification Model] of your choice!")
+    st.write("*Disclaimer: While these predictions serve as a valuable starting point for assessing songs, it's crucial to consider them as just one component of the larger picture. The ultimate outcome of a song is influenced by various other factors.*")
+
     def load_lottieurl(url: str):
             r = requests.get(url)
             if r.status_code != 200:
