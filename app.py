@@ -96,7 +96,7 @@ if page == "Introduction 👋🏻":
         
         # container = st.container(border = True)
         # with container:
-            st.title(" :red[Explore and Analyze Your Songs] ♩♫♪♬")
+            st.title(" :violet[Explore and Analyze Your Songs] ♩♫♪♬")
             st.subheader(":grey[With] ✨ :rainbow[The Song Stats App] ✨")
             st.divider()
             st.markdown("👋🏻 Hello there! Welcome to Ann's Song Analysis Explorer App. Would you like to know if your next song will become a hit? With this app, you have the ability to predict whether or not your song will gain popularity by looking at specific musical features based off the [Song Popularity Dataset](https://www.kaggle.com/datasets/yasserh/song-popularity-dataset/data?select=song_data.csv).")  
@@ -357,15 +357,18 @@ if page == 'Spotify API 🎧':
                     with container:
                         col01, col02, col03 = st.columns((8, 7, 5))
                         col02.subheader('Album Information')
+                        st.divider()
                         col1, col2, col3 = st.columns((6, 4, 2))
                         col1.write(':red[Album Names]')
                         col2.write(':red[Release Dates]')
                         col3.write(':red[Total tracks in album]')
                         # for album in all_albums:
                         for index, album in enumerate(all_albums, start=1):
-                            col1.write(f"{index}. {album['name']}")
-                            col2.write(album['release_date'])
-                            col3.write(album['total_tracks'])
+                            with st.container():
+                                col1, col2, col3 = st.columns((6, 4, 2))
+                                col1.write(f"{index}. {album['name']}")
+                                col2.write(album['release_date'])
+                                col3.write(album['total_tracks'])
                 elif selected_artist_choice == 'Top Songs 🎵':
                     col_df, col_plot = st.columns((5,5))
                     col_rec_list, col_graph = st.columns((5, 8))
@@ -374,7 +377,12 @@ if page == 'Spotify API 🎧':
                     top_songs_result = sp.artist_top_tracks(artist_uri)
                     container = st.container(border = True)
                     with container:
+                        col01, col02, col03 = st.columns((6, 7, 5))
+                        col02.subheader(f"{selected_artist}'s Top Songs 🤩")
+                        st.divider()
                         col01, col02, col03, col04 = st.columns((4, 2, 2, 4))
+                        col04.write("*Song previews will populate if available*")
+                        col01.write("#")
                         col01.write("**:red[Track Name]**")
 
                         for index, track in enumerate(top_songs_result['tracks'], start=1):
@@ -383,7 +391,7 @@ if page == 'Spotify API 🎧':
                             col11, col12 = st.columns((5, 5))
                             col21, col22 = st.columns((5, 5))
                             col31, col32 = st.columns((5, 5))
-                        
+
                             col1.write(f"**{index}. {track['name']}**")
 
                             def feature_requested():
@@ -423,8 +431,6 @@ if page == 'Spotify API 🎧':
                                 col11.audio(track['preview_url'], format = 'audio/mp3')
                                 col12.write(f"[preview link]({track['preview_url']})")
                             
-                            st.divider()
-
             tip_container = st.container(border = True)
             tip_container.write("💡 **:red[Tip]**- Check out more from artist in the sidebar")
 
