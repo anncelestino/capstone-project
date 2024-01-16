@@ -296,7 +296,7 @@ if page == 'Spotify API 🎧':
 
                 if selected_track_choice == 'Song Features ♭':
                     with st.container(border = True):
-                        col1_spacer, col1, col2_spacer = st.columns((2.5, 7, 0.2))
+                        col1_spacer, col1, col2_spacer = st.columns((2.5, 7, 2.5))
                         col1.header(f':green[Stats for {selected_track} 💽]')
                         st.divider()
                         track_features = sp.audio_features(track_id)
