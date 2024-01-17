@@ -868,7 +868,7 @@ if page == "Machine Learning Modeling 🤖":
                 
             def use_image(score):
                 if score > 46.11:
-                    return container3.image('https://preview.redd.it/izsegksg4dr21.jpg?auto=webp&s=1808fbbe9d7c5667a95d4376b4757bbd269fbeb4', width = 300)
+                    return container3.markdown("![Alt Text](https://i.makeagif.com/media/6-24-2016/88fxKE.gif)")# container3.image('https://preview.redd.it/izsegksg4dr21.jpg?auto=webp&s=1808fbbe9d7c5667a95d4376b4757bbd269fbeb4', width = 300)
                 else:
                     return container3.image('https://media.makeameme.org/created/dont-be-sad-901acc7b3d.jpg', width = 300)
                 
