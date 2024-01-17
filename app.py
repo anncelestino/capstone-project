@@ -321,7 +321,7 @@ if page == 'Spotify API 🎧':
                         recommendation_list = similar_songs_json['tracks']
                         recommendation_list_df = pd.DataFrame(recommendation_list)
                         recommendation_df = recommendation_list_df[['name', 'explicit', 'duration_ms', 'popularity']]
-                        st.subheader(":green[Similar Songs Recommendation]")
+                        st.subheader(":green[Similar Songs Recommendations]")
                         st.dataframe(recommendation_df, hide_index = True)
                         st.subheader(":green[Similar Songs Graph]")
                         st.write("Red circle means explicit. Size of circle based on popularity.")

@@ -37,7 +37,7 @@ def song_recommendation_vis(reco_df):
     reco_df['duration_min'] = round(reco_df['duration_ms'] / 60000, 1)
     reco_df["popularity_range"] = reco_df["popularity"] - (reco_df['popularity'].min() - 1)
 
-    plt.figure(figsize=(15, 7), facecolor= "mistyrose")    
+    plt.figure(figsize=(12, 7), facecolor= "mistyrose")    
 
     y = reco_df['name']
     x = reco_df['duration_min']
