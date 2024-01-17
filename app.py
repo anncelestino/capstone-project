@@ -295,7 +295,7 @@ if page == 'Spotify API 🎧':
                     st.write("*no song preview available*")
                 st.divider()
                 track_choices = ['Song Features ♭', 'Similar Songs Recommendations 🩵']
-                selected_track_choice = st.sidebar.selectbox('More options', track_choices)
+                selected_track_choice = st.sidebar.selectbox('More song options', track_choices)
 
                 if selected_track_choice == 'Song Features ♭':
                     with st.container(border = True):
