@@ -292,7 +292,7 @@ if page == 'Spotify API 🎧':
                 if song_preview is not None:
                     st.audio(song_preview, format = 'audio/mp3')
                 else:
-                    st.write("*no preview available for song*")
+                    st.write("*no song preview available*")
                 st.divider()
                 track_choices = ['Song Features ♭', 'Similar Songs Recommendations 🩵']
                 selected_track_choice = st.sidebar.selectbox('More options', track_choices)
