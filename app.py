@@ -1112,4 +1112,4 @@ with st.sidebar:
     st_lottie(lottie_data_overview, speed=.70, height=200)
 
 st.divider()
-st.write("🔧 Last Updated: January 16, 2024")
+st.write("🔧 Last Updated: February 22, 2024")
