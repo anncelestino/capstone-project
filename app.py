@@ -1098,7 +1098,7 @@ if page == "Predict Song Popularity 🔮":
                 container2.header(":red[Missing inputs]. Please recheck your inputs.")
 
 st.sidebar.divider()
-st.sidebar.write("Created wtih ❤️ by a [Music Lover](www.linkedin.com/in/ann-celestino-459333184)")
+st.sidebar.write("Created wtih ❤️ by a [Music Lover](https://www.linkedin.com/in/ann-celestino-459333184)")
 st.sidebar.write(":yellow[For ✨ Music Lovers ✨]")
 st.sidebar.write("#")
 st.sidebar.write("#")
